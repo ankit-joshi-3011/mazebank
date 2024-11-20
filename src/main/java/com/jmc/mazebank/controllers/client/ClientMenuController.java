@@ -1,5 +1,6 @@
 package com.jmc.mazebank.controllers.client;
 
+import com.jmc.mazebank.views.ViewFactory;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -28,6 +29,19 @@ public class ClientMenuController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        
+        addListeners();
+    }
+
+    private void addListeners() {
+        dashboard_button.setOnAction(_ -> onDashboard());
+        transactions_button.setOnAction(_ -> onTransactions());
+    }
+
+    private void onDashboard() {
+        ViewFactory.getInstance().getClientSelectedMenuItem().set("Dashboard");
+    }
+
+    private void onTransactions() {
+        ViewFactory.getInstance().getClientSelectedMenuItem().set("Transactions");
     }
 }

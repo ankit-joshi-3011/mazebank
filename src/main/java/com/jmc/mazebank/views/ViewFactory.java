@@ -1,6 +1,8 @@
 package com.jmc.mazebank.views;
 
 import com.jmc.mazebank.controllers.client.ClientController;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
@@ -12,10 +14,16 @@ public class ViewFactory {
     private static ViewFactory viewFactory;
 
     // Client Views
+    private final StringProperty clientSelectedMenuItem;
     private AnchorPane dashboardView;
     private AnchorPane transactionsView;
 
     private ViewFactory() {
+        clientSelectedMenuItem = new SimpleStringProperty("");
+    }
+
+    public StringProperty getClientSelectedMenuItem() {
+        return clientSelectedMenuItem;
     }
 
     public static synchronized ViewFactory getInstance() {
