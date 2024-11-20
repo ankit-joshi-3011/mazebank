@@ -17,7 +17,7 @@ public class ViewFactory {
     private ViewFactory() {
     }
 
-    public static ViewFactory getInstance() {
+    public static synchronized ViewFactory getInstance() {
         if (viewFactory == null) {
             viewFactory = new ViewFactory();
         }
