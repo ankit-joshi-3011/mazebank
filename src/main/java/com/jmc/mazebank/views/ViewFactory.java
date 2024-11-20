@@ -1,5 +1,6 @@
 package com.jmc.mazebank.views;
 
+import com.jmc.mazebank.controllers.admin.AdminController;
 import com.jmc.mazebank.controllers.client.ClientController;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
@@ -20,8 +21,14 @@ public class ViewFactory {
     private AnchorPane transactionsView;
     private AnchorPane accountsView;
 
+    // Admin Views
+    private final StringProperty adminSelectedMenuItem;
+
+    private AnchorPane createClientView;
+
     private ViewFactory() {
         clientSelectedMenuItem = new SimpleStringProperty("");
+        adminSelectedMenuItem = new SimpleStringProperty("");
     }
 
     public StringProperty getClientSelectedMenuItem() {
@@ -85,6 +92,31 @@ public class ViewFactory {
         loader.setController(clientController);
 
         createStage(loader);
+    }
+
+    public void showAdminWindow() {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/admin/Admin.fxml"));
+
+        AdminController adminController = new AdminController();
+        loader.setController(adminController);
+
+        createStage(loader);
+    }
+
+    public StringProperty getAdminSelectedMenuItem() {
+        return adminSelectedMenuItem;
+    }
+
+    public AnchorPane getCreateClientView() {
+        if (createClientView == null) {
+            try {
+                createClientView = new FXMLLoader(getClass().getResource("/fxml/admin/CreateClient.fxml")).load();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        return createClientView;
     }
 
     private void createStage(FXMLLoader loader) {
