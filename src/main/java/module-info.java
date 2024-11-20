@@ -7,6 +7,7 @@ module com.jmc.mazebank {
 
     opens com.jmc.mazebank to javafx.fxml;
     opens com.jmc.mazebank.controllers to javafx.fxml;
+    opens com.jmc.mazebank.controllers.client to javafx.fxml;
 
     exports com.jmc.mazebank;
     exports com.jmc.mazebank.controllers;
