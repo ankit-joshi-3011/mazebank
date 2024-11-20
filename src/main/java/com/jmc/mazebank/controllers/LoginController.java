@@ -7,6 +7,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -32,6 +33,13 @@ public class LoginController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        login_button.setOnAction(_ -> ViewFactory.getInstance().showClientWindow());
+        login_button.setOnAction(_ -> onLogin());
+    }
+
+    private void onLogin() {
+        Stage stage = (Stage) error_label.getScene().getWindow();
+        ViewFactory.getInstance().closeStage(stage);
+
+        ViewFactory.getInstance().showClientWindow();
     }
 }
