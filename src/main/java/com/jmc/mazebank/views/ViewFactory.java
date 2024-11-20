@@ -12,6 +12,8 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class ViewFactory {
+    private AccountType loginAccountType;
+
     private static ViewFactory viewFactory;
 
     // Client Views
@@ -27,6 +29,7 @@ public class ViewFactory {
     private AnchorPane createClientView;
 
     private ViewFactory() {
+        loginAccountType = AccountType.CLIENT;
         clientSelectedMenuItem = new SimpleObjectProperty<>();
         adminSelectedMenuItem = new SimpleObjectProperty<>();
     }
@@ -41,6 +44,14 @@ public class ViewFactory {
         }
 
         return viewFactory;
+    }
+
+    public AccountType getLoginAccountType() {
+        return loginAccountType;
+    }
+
+    public void setLoginAccountType(AccountType loginAccountType) {
+        this.loginAccountType = loginAccountType;
     }
 
     public AnchorPane getDashboardView() {
