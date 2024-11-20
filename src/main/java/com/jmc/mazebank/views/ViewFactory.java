@@ -13,6 +13,7 @@ public class ViewFactory {
 
     // Client Views
     private AnchorPane dashboardView;
+    private AnchorPane transactionsView;
 
     private ViewFactory() {
     }
@@ -35,6 +36,18 @@ public class ViewFactory {
         }
 
         return dashboardView;
+    }
+
+    public AnchorPane getTransactionsView() {
+        if (transactionsView == null) {
+            try {
+                transactionsView = new FXMLLoader(getClass().getResource("/fxml/client/Transactions.fxml")).load();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        return transactionsView;
     }
 
     public void showLoginWindow() {
