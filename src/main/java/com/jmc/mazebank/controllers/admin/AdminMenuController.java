@@ -1,5 +1,6 @@
 package com.jmc.mazebank.controllers.admin;
 
+import com.jmc.mazebank.views.AdminMenuOptions;
 import com.jmc.mazebank.views.ViewFactory;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -31,6 +32,6 @@ public class AdminMenuController implements Initializable {
     }
 
     private void onCreateClient() {
-        ViewFactory.getInstance().getAdminSelectedMenuItem().set("CreateClient");
+        ViewFactory.getInstance().getAdminSelectedMenuItem().set(AdminMenuOptions.CREATE_CLIENT);
     }
 }
