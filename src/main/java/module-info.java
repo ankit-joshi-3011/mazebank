@@ -6,6 +6,8 @@ module com.jmc.mazebank {
     requires org.xerial.sqlitejdbc;
 
     opens com.jmc.mazebank to javafx.fxml;
+    opens com.jmc.mazebank.controllers to javafx.fxml;
+
     exports com.jmc.mazebank;
     exports com.jmc.mazebank.controllers;
     exports com.jmc.mazebank.controllers.admin;
