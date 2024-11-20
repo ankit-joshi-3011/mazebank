@@ -1,5 +1,6 @@
 package com.jmc.mazebank.controllers;
 
+import com.jmc.mazebank.views.ViewFactory;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -31,5 +32,6 @@ public class LoginController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        login_button.setOnAction(_ -> ViewFactory.getInstance().showClientWindow());
     }
 }
