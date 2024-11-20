@@ -9,11 +9,20 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class ViewFactory {
+    private static ViewFactory viewFactory;
+
     // Client Views
     private AnchorPane dashboardView;
 
-    public ViewFactory() {
+    private ViewFactory() {
+    }
 
+    public static ViewFactory getInstance() {
+        if (viewFactory == null) {
+            viewFactory = new ViewFactory();
+        }
+
+        return viewFactory;
     }
 
     public AnchorPane getDashboardView() {
