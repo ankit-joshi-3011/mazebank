@@ -2,6 +2,8 @@ package com.jmc.mazebank.views;
 
 import com.jmc.mazebank.controllers.admin.AdminController;
 import com.jmc.mazebank.controllers.client.ClientController;
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.fxml.FXMLLoader;
@@ -15,7 +17,7 @@ public class ViewFactory {
     private static ViewFactory viewFactory;
 
     // Client Views
-    private final StringProperty clientSelectedMenuItem;
+    private final ObjectProperty<ClientMenuOptions> clientSelectedMenuItem;
 
     private AnchorPane dashboardView;
     private AnchorPane transactionsView;
@@ -27,11 +29,11 @@ public class ViewFactory {
     private AnchorPane createClientView;
 
     private ViewFactory() {
-        clientSelectedMenuItem = new SimpleStringProperty("");
+        clientSelectedMenuItem = new SimpleObjectProperty<>();
         adminSelectedMenuItem = new SimpleStringProperty("");
     }
 
-    public StringProperty getClientSelectedMenuItem() {
+    public ObjectProperty<ClientMenuOptions> getClientSelectedMenuItem() {
         return clientSelectedMenuItem;
     }
 
