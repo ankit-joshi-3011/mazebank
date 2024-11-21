@@ -1,6 +1,7 @@
 package com.jmc.mazebank.models;
 
 import java.sql.*;
+import java.time.LocalDate;
 
 public class DatabaseDriver {
     private Connection connection;
@@ -43,5 +44,63 @@ public class DatabaseDriver {
         return resultSet;
     }
 
+    public void createClient(String firstName, String lastName, String payeeAddress, String password, LocalDate date) {
+        Statement statement = null;
+
+        try {
+            statement = this.connection.createStatement();
+            statement.executeUpdate("INSERT INTO " +
+                "Clients(FirstName, LastName, PayeeAddress, Password, Date)" +
+                "VALUES ('" + firstName + "', '" + lastName + "', '" + payeeAddress + "', '" + password + "', '" + date.toString() + "');"
+            );
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void createSavingsAccountFirst(String owner, String accountNumber, Double transactionLimit, Double balance) {
+        Statement statement = null;
+
+        try {
+            statement = this.connection.createStatement();
+            statement.executeUpdate("INSERT INTO " +
+                    "SavingsAccountFirst(Owner, AccountNumber, TransactionLimit, Balance)" +
+                    "VALUES ('" + owner + "', '" + accountNumber + "', " + transactionLimit + ", " + balance + ");"
+            );
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void createSavingsAccountSecond(String owner, String accountNumber, Double transactionLimit, Double balance) {
+        Statement statement = null;
+
+        try {
+            statement = this.connection.createStatement();
+            statement.executeUpdate("INSERT INTO " +
+                    "SavingsAccountSecond(Owner, AccountNumber, TransactionLimit, Balance)" +
+                    "VALUES ('" + owner + "', '" + accountNumber + "', " + transactionLimit + ", " + balance + ");"
+            );
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
     // Utility methods
+    public int getLastClientId() {
+        Statement statement = null;
+        ResultSet resultSet = null;
+
+        int id = 0;
+
+        try {
+            statement = this.connection.createStatement();
+            resultSet = statement.executeQuery("SELECT * FROM sqlite_sequence WHERE name='Clients';");
+            id = resultSet.getInt("seq");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return id;
+    }
 }
