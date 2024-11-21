@@ -5,6 +5,7 @@ import com.jmc.mazebank.views.ViewFactory;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.stage.Stage;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -31,6 +32,7 @@ public class AdminMenuController implements Initializable {
         create_client_button.setOnAction(_ -> onCreateClient());
         clients_button.setOnAction(_ -> onClients());
         deposit_button.setOnAction(_ -> onDeposit());
+        logout_button.setOnAction(_ -> onLogout());
     }
 
     private void onCreateClient() {
@@ -43,5 +45,13 @@ public class AdminMenuController implements Initializable {
 
     private void onDeposit() {
         ViewFactory.getInstance().getAdminSelectedMenuItem().set(AdminMenuOptions.DEPOSIT);
+    }
+
+    private void onLogout() {
+        Stage stage = (Stage) clients_button.getScene().getWindow();
+
+        ViewFactory.getInstance().closeStage(stage);
+
+        ViewFactory.getInstance().showLoginWindow();
     }
 }
