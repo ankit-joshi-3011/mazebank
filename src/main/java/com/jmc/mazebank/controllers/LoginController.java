@@ -35,7 +35,7 @@ public class LoginController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        acc_selector.setItems(FXCollections.observableArrayList(AccountType.ADMIN, AccountType.CLIENT));
+        acc_selector.setItems(FXCollections.observableArrayList(AccountType.CLIENT, AccountType.ADMIN));
         acc_selector.setValue(ViewFactory.getInstance().getLoginAccountType());
         acc_selector.valueProperty().addListener(_ -> ViewFactory.getInstance().setLoginAccountType(acc_selector.getValue()));
         login_button.setOnAction(_ -> onLogin());
