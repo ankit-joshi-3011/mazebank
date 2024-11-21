@@ -1,5 +1,6 @@
 package com.jmc.mazebank.controllers.client;
 
+import com.jmc.mazebank.models.Transaction;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -26,6 +27,12 @@ public class TransactionCellController implements Initializable {
 
     @FXML
     private Label amount_label;
+
+    private final Transaction transaction;
+
+    public TransactionCellController(Transaction transaction) {
+        this.transaction = transaction;
+    }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
