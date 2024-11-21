@@ -160,4 +160,29 @@ public class Model {
 
         return savingsAccountSecond;
     }
+
+    public ObservableList<Client> searchClient(String payeeAddress) {
+        ObservableList<Client> searchResults = FXCollections.observableArrayList();
+
+        try (ResultSet resultSet = databaseDriver.searchClient(payeeAddress)) {
+            String firstName = resultSet.getString("FirstName");
+            String lastName = resultSet.getString("LastName");
+            String[] dateParts = resultSet.getString("Date").split("-");
+            LocalDate date = LocalDate.of(
+                Integer.parseInt(dateParts[0]),
+                Integer.parseInt(dateParts[1]),
+                Integer.parseInt(dateParts[2])
+            );
+
+            searchResults.add(new Client(firstName, lastName, payeeAddress, getSavingsAccountFirst(payeeAddress), getSavingsAccountSecond(payeeAddress), date));
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return searchResults;
+    }
+
+    public void depositSavings(String payeeAddress, double amount) {
+        databaseDriver.depositSavings(payeeAddress, amount);
+    }
 }

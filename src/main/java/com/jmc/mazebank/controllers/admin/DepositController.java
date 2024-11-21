@@ -1,5 +1,9 @@
 package com.jmc.mazebank.controllers.admin;
 
+import com.jmc.mazebank.models.Client;
+import com.jmc.mazebank.models.Model;
+import com.jmc.mazebank.views.ClientCellFactory;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -17,7 +21,7 @@ public class DepositController implements Initializable {
     private Button search_button;
 
     @FXML
-    private ListView result_listview;
+    private ListView<Client> result_listview;
 
     @FXML
     private TextField amount_field;
@@ -25,8 +29,34 @@ public class DepositController implements Initializable {
     @FXML
     Button deposit_button;
 
+    private Client client;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        search_button.setOnAction(_ -> onClientSearch());
+        deposit_button.setOnAction(_ -> onDeposit());
+    }
 
+    private void onClientSearch() {
+        ObservableList<Client> searchResults = Model.getInstance().searchClient(payee_address_field.getText());
+        result_listview.setItems(searchResults);
+        result_listview.setCellFactory(_ -> new ClientCellFactory());
+        client = searchResults.getFirst();
+    }
+
+    private void onDeposit() {
+        if (amount_field.getText() != null) {
+            double amount = Double.parseDouble(amount_field.getText());
+            double newBalance = amount + client.savingsAccountSecondProperty().get().balanceProperty().get();
+
+            Model.getInstance().depositSavings(payee_address_field.getText(), newBalance);
+        }
+
+        clearFields();
+    }
+
+    private void clearFields() {
+        payee_address_field.clear();
+        amount_field.clear();
     }
 }
