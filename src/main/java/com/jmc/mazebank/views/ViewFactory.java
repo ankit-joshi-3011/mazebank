@@ -6,6 +6,7 @@ import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
@@ -167,6 +168,8 @@ public class ViewFactory {
 
         Stage stage = new Stage();
         stage.setScene(scene);
+        stage.getIcons().addAll(new Image(String.valueOf(getClass().getResource("/images/icon.png"))));
+        stage.setResizable(false);
         stage.setTitle("Maze Bank");
         stage.show();
     }
