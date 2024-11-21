@@ -10,8 +10,6 @@ public class Model {
     private static Model model;
     private final DatabaseDriver databaseDriver;
 
-    private AccountType loginAccountType;
-
     // Client Data Section
     private Client client;
 
@@ -19,8 +17,6 @@ public class Model {
 
     private Model() {
         this.databaseDriver = new DatabaseDriver();
-
-        this.loginAccountType = AccountType.CLIENT;
 
         // Client Data Section
         client = new Client("", "", "", null, null, null);
@@ -36,6 +32,7 @@ public class Model {
         return model;
     }
 
+    // Client method section
     public boolean evaluateClientCredentials(String payeeAddress, String password) {
         ResultSet resultSet = databaseDriver.getClientData(payeeAddress, password);
 
@@ -53,6 +50,21 @@ public class Model {
                 );
                 client.dateCreatedProperty().set(date);
 
+                return true;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return false;
+    }
+
+    // Admin method section
+    public boolean evaluateAdminCredentials(String userName, String password) {
+        ResultSet resultSet = databaseDriver.getAdminData(userName, password);
+
+        try {
+            if (resultSet.isBeforeFirst()) {
                 return true;
             }
         } catch (SQLException e) {

@@ -38,7 +38,7 @@ public class LoginController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         acc_selector.setItems(FXCollections.observableArrayList(AccountType.CLIENT, AccountType.ADMIN));
         acc_selector.setValue(ViewFactory.getInstance().getLoginAccountType());
-        acc_selector.valueProperty().addListener(_ -> ViewFactory.getInstance().setLoginAccountType(acc_selector.getValue()));
+        acc_selector.valueProperty().addListener(_ -> setAccountSelector());
         login_button.setOnAction(_ -> onLogin());
     }
 
@@ -55,7 +55,26 @@ public class LoginController implements Initializable {
                 error_label.setText("No Such Login Credentials");
             }
         } else {
-            ViewFactory.getInstance().showAdminWindow();
+            if (Model.getInstance().evaluateAdminCredentials(payee_address_field.getText(), password_field.getText())) {
+                ViewFactory.getInstance().showAdminWindow();
+
+                Stage stage = (Stage) error_label.getScene().getWindow();
+                ViewFactory.getInstance().closeStage(stage);
+            } else {
+                payee_address_field.clear();
+                password_field.clear();
+                error_label.setText("No Such Login Credentials");
+            }
+        }
+    }
+
+    private void setAccountSelector() {
+        ViewFactory.getInstance().setLoginAccountType(acc_selector.getValue());
+
+        if (acc_selector.getValue() == AccountType.ADMIN) {
+            payee_address_label.setText("Username:");
+        } else {
+            payee_address_label.setText("Payee Address:");
         }
     }
 }

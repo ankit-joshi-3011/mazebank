@@ -29,6 +29,19 @@ public class DatabaseDriver {
     }
 
     // Admin Section
+    public ResultSet getAdminData(String userName, String password) {
+        Statement statement = null;
+        ResultSet resultSet = null;
+
+        try {
+            statement = this.connection.createStatement();
+            resultSet = statement.executeQuery("SELECT * FROM Admins WHERE Username = '" + userName + "' AND Password = '" + password + "';");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return resultSet;
+    }
 
     // Utility methods
 }
