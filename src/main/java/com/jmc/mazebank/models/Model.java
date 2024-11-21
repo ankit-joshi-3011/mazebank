@@ -14,7 +14,9 @@ public class Model {
     // Client Data Section
     private final Client client;
 
-    private ObservableList<Client> clients;
+    private final ObservableList<Client> clients;
+    private final ObservableList<Transaction> latestTransactions;
+    private final ObservableList<Transaction> allTransactions;
 
     // Admin Data Section
 
@@ -26,6 +28,8 @@ public class Model {
 
         // Admin Data Section
         clients = FXCollections.observableArrayList();
+        latestTransactions = FXCollections.observableArrayList();
+        allTransactions = FXCollections.observableArrayList();
     }
 
     public static synchronized Model getInstance() {
@@ -63,6 +67,49 @@ public class Model {
         }
 
         return false;
+    }
+
+    public Client getClient() {
+        return client;
+    }
+
+    private void prepareTransactions(ObservableList<Transaction> transactions, int limit) {
+        ResultSet resultSet = databaseDriver.getTransactions(client.payeeAddressProperty().get(), limit);
+
+        try {
+            while (resultSet.next()) {
+                String sender = resultSet.getString("Sender");
+                String receiver = resultSet.getString("Receiver");
+                double amount = resultSet.getDouble("Amount");
+                String[] dateParts = resultSet.getString("Date").split("-");
+                LocalDate date = LocalDate.of(
+                        Integer.parseInt(dateParts[0]),
+                        Integer.parseInt(dateParts[1]),
+                        Integer.parseInt(dateParts[2])
+                );
+                String message = resultSet.getString("Message");
+
+                transactions.add(new Transaction(sender, receiver, amount, date, message));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void setLatestTransactions() {
+        prepareTransactions(latestTransactions, 4);
+    }
+
+    public ObservableList<Transaction> getLatestTransactions() {
+        return latestTransactions;
+    }
+
+    public void setAllTransactions() {
+        prepareTransactions(allTransactions, -1);
+    }
+
+    public ObservableList<Transaction> getAllTransactions() {
+        return allTransactions;
     }
 
     // Admin method section
