@@ -175,6 +175,15 @@ public class Model {
         }
     }
 
+    public void updateBalance(String receiver, double amount, boolean addOrSubtract) {
+        databaseDriver.updateBalance(receiver, amount, addOrSubtract);
+        client.savingsAccountSecondProperty().get().setBalance(amount, false);
+    }
+
+    public void newTransaction(String sender, String receiver, double amount, String message) {
+        databaseDriver.newTransaction(sender, receiver, amount, message);
+    }
+
     // Utility Methods
     public SavingsAccount getSavingsAccountFirst(String payeeAddress) {
         SavingsAccount savingsAccountFirst = null;

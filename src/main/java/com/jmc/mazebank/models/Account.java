@@ -27,4 +27,8 @@ public abstract class Account {
     public DoubleProperty balanceProperty() {
         return balance;
     }
+
+    public void setBalance(double amount, boolean addOrSubtract) {
+        balance.set(balance.get() + (addOrSubtract ? amount : -amount));
+    }
 }

@@ -1,9 +1,11 @@
 package com.jmc.mazebank.controllers.client;
 
+import com.jmc.mazebank.models.Client;
 import com.jmc.mazebank.models.Model;
 import com.jmc.mazebank.models.Transaction;
 import com.jmc.mazebank.views.TransactionCellFactory;
 import javafx.beans.binding.Bindings;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
@@ -59,6 +61,7 @@ public class DashboardController implements Initializable {
         initializeLatestTransactionsList();
         transactions_listview.setItems(Model.getInstance().getLatestTransactions());
         transactions_listview.setCellFactory(_ -> new TransactionCellFactory());
+        send_money_button.setOnAction(_ -> onSendMoney());
     }
 
     private void bindData() {
@@ -72,5 +75,26 @@ public class DashboardController implements Initializable {
 
     private void initializeLatestTransactionsList() {
         Model.getInstance().setLatestTransactions();
+    }
+
+    private void onSendMoney() {
+        String payeeAddress = payee_address_field.getText();
+        double amount = Double.parseDouble(amount_field.getText());
+        String message = message_field.getText();
+        String sender = Model.getInstance().getClient().payeeAddressProperty().get();
+        ObservableList<Client> searchResults = Model.getInstance().searchClient(payeeAddress);
+
+        if (!searchResults.isEmpty()) {
+            Model.getInstance().updateBalance(payeeAddress, amount, true);
+            Model.getInstance().updateBalance(sender, amount, false);
+            Model.getInstance().newTransaction(sender, payeeAddress, amount, message);
+            clearFields();
+        }
+    }
+
+    private void clearFields() {
+        payee_address_field.clear();
+        amount_field.clear();
+        message_field.clear();
     }
 }
