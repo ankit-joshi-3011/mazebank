@@ -30,6 +30,7 @@ public class AdminMenuController implements Initializable {
     private void addListeners() {
         create_client_button.setOnAction(_ -> onCreateClient());
         clients_button.setOnAction(_ -> onClients());
+        deposit_button.setOnAction(_ -> onDeposit());
     }
 
     private void onCreateClient() {
@@ -38,5 +39,9 @@ public class AdminMenuController implements Initializable {
 
     private void onClients() {
         ViewFactory.getInstance().getAdminSelectedMenuItem().set(AdminMenuOptions.CLIENTS);
+    }
+
+    private void onDeposit() {
+        ViewFactory.getInstance().getAdminSelectedMenuItem().set(AdminMenuOptions.DEPOSIT);
     }
 }

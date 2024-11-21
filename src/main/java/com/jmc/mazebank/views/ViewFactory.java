@@ -28,6 +28,7 @@ public class ViewFactory {
 
     private AnchorPane createClientView;
     private AnchorPane clientsView;
+    private AnchorPane depositView;
 
     private ViewFactory() {
         loginAccountType = AccountType.CLIENT;
@@ -141,6 +142,18 @@ public class ViewFactory {
         }
 
         return clientsView;
+    }
+
+    public AnchorPane getDepositView() {
+        if (depositView == null) {
+            try {
+                depositView = new FXMLLoader(getClass().getResource("/fxml/admin/Deposit.fxml")).load();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        return depositView;
     }
 
     private void createStage(FXMLLoader loader) {
