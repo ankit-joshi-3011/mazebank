@@ -1,10 +1,12 @@
 package com.jmc.mazebank.controllers.client;
 
+import com.jmc.mazebank.models.Model;
 import com.jmc.mazebank.models.Transaction;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
+import javafx.scene.paint.Color;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -40,5 +42,16 @@ public class TransactionCellController implements Initializable {
         receiver_label.textProperty().bind(transaction.receiverProperty());
         amount_label.textProperty().bind(transaction.amountProperty().asString());
         transaction_date_label.textProperty().bind(transaction.dateProperty().asString());
+        setTransactionIcons();
+    }
+
+    private void setTransactionIcons() {
+        if (transaction.senderProperty().get().equals(Model.getInstance().getClient().payeeAddressProperty().get())) {
+            in_icon.setFill(Color.rgb(240, 240, 240));
+            out_icon.setFill(Color.RED);
+        } else {
+            in_icon.setFill(Color.GREEN);
+            out_icon.setFill(Color.rgb(240, 240, 240));
+        }
     }
 }
