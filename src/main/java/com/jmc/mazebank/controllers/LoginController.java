@@ -1,5 +1,6 @@
 package com.jmc.mazebank.controllers;
 
+import com.jmc.mazebank.models.Model;
 import com.jmc.mazebank.views.AccountType;
 import com.jmc.mazebank.views.ViewFactory;
 import javafx.collections.FXCollections;
@@ -42,11 +43,17 @@ public class LoginController implements Initializable {
     }
 
     private void onLogin() {
-        Stage stage = (Stage) error_label.getScene().getWindow();
-        ViewFactory.getInstance().closeStage(stage);
-
         if (ViewFactory.getInstance().getLoginAccountType() == AccountType.CLIENT) {
-            ViewFactory.getInstance().showClientWindow();
+            if (Model.getInstance().evaluateClientCredentials(payee_address_field.getText(), password_field.getText())) {
+                ViewFactory.getInstance().showClientWindow();
+
+                Stage stage = (Stage) error_label.getScene().getWindow();
+                ViewFactory.getInstance().closeStage(stage);
+            } else {
+                payee_address_field.clear();
+                password_field.clear();
+                error_label.setText("No Such Login Credentials");
+            }
         } else {
             ViewFactory.getInstance().showAdminWindow();
         }
