@@ -62,6 +62,7 @@ public class DashboardController implements Initializable {
         transactions_listview.setItems(Model.getInstance().getLatestTransactions());
         transactions_listview.setCellFactory(_ -> new TransactionCellFactory());
         send_money_button.setOnAction(_ -> onSendMoney());
+        calculateAccountSummary();
     }
 
     private void bindData() {
@@ -96,5 +97,25 @@ public class DashboardController implements Initializable {
         payee_address_field.clear();
         amount_field.clear();
         message_field.clear();
+    }
+
+    private void calculateAccountSummary() {
+        double income = 0.0;
+        double expense = 0.0;
+
+        if (Model.getInstance().getAllTransactions().isEmpty()) {
+            Model.getInstance().setAllTransactions();
+        }
+
+        for (Transaction transaction : Model.getInstance().getAllTransactions()) {
+            if (transaction.senderProperty().get().equals(Model.getInstance().getClient().payeeAddressProperty().get())) {
+                expense = expense + transaction.amountProperty().get();
+            } else {
+                income = income + transaction.amountProperty().get();
+            }
+        }
+
+        income_label.setText("+ Rs. " + income);
+        expense_label.setText("- Rs. " + expense);
     }
 }
