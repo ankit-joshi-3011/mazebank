@@ -22,6 +22,8 @@ public class TransactionsController implements Initializable {
     }
 
     private void initializeAllTransactions() {
-        Model.getInstance().setAllTransactions();
+        if (Model.getInstance().getAllTransactions().isEmpty()) {
+            Model.getInstance().setAllTransactions();
+        }
     }
 }
