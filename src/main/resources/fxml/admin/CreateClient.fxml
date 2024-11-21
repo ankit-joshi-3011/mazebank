@@ -28,6 +28,6 @@
         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Savings Account 2 Balance" />
         <TextField fx:id="savings_account_second_amount_field" />
         <Button fx:id="create_client_button" mnemonicParsing="false" text="Create New Client" />
-        <Label fx:id="error_label" styleClass="error_label" text="Error:" />
+        <Label fx:id="error_label" styleClass="error_label" />
     </VBox>
 </AnchorPane>
