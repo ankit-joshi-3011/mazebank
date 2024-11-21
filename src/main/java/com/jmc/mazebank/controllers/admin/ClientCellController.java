@@ -1,10 +1,15 @@
 package com.jmc.mazebank.controllers.admin;
 
+import com.jmc.mazebank.models.Client;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 
-public class ClientCellController {
+import java.net.URL;
+import java.util.ResourceBundle;
+
+public class ClientCellController implements Initializable {
     @FXML
     private Label first_name_label;
 
@@ -25,4 +30,15 @@ public class ClientCellController {
 
     @FXML
     private Button delete_button;
+
+    private final Client client;
+
+    public ClientCellController(Client client) {
+        this.client = client;
+    }
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+
+    }
 }
