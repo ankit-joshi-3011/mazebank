@@ -1,5 +1,8 @@
 package com.jmc.mazebank.models;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
@@ -9,7 +12,9 @@ public class Model {
     private final DatabaseDriver databaseDriver;
 
     // Client Data Section
-    private Client client;
+    private final Client client;
+
+    private ObservableList<Client> clients;
 
     // Admin Data Section
 
@@ -20,6 +25,7 @@ public class Model {
         client = new Client("", "", "", null, null, null);
 
         // Admin Data Section
+        clients = FXCollections.observableArrayList();
     }
 
     public static synchronized Model getInstance() {
@@ -47,6 +53,8 @@ public class Model {
                     Integer.parseInt(dateParts[2])
                 );
                 client.dateCreatedProperty().set(date);
+                client.savingsAccountFirstProperty().set(getSavingsAccountFirst(payeeAddress));
+                client.savingsAccountSecondProperty().set(getSavingsAccountSecond(payeeAddress));
 
                 return true;
             }
@@ -86,5 +94,70 @@ public class Model {
 
     public int getLastClientId() {
         return databaseDriver.getLastClientId();
+    }
+
+    public ObservableList<Client> getClients() {
+        return clients;
+    }
+
+    public void setClients() {
+        SavingsAccount savingsAccountFirst;
+        SavingsAccount savingsAccountSecond;
+        ResultSet resultSet = databaseDriver.getAllClientsData();
+
+        try {
+            while (resultSet.next()) {
+                String firstName = resultSet.getString("FirstName");
+                String lastName = resultSet.getString("LastName");
+                String payeeAddress = resultSet.getString("PayeeAddress");
+
+                String[] dateParts = resultSet.getString("Date").split("-");
+                LocalDate date = LocalDate.of(
+                    Integer.parseInt(dateParts[0]),
+                    Integer.parseInt(dateParts[1]),
+                    Integer.parseInt(dateParts[2])
+                );
+
+                savingsAccountFirst = getSavingsAccountFirst(payeeAddress);
+                savingsAccountSecond = getSavingsAccountSecond(payeeAddress);
+
+                clients.add(new Client(firstName, lastName, payeeAddress, savingsAccountFirst, savingsAccountSecond, date));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    // Utility Methods
+    public SavingsAccount getSavingsAccountFirst(String payeeAddress) {
+        SavingsAccount savingsAccountFirst = null;
+        ResultSet resultSet = databaseDriver.getSavingsAccountFirstData(payeeAddress);
+
+        try {
+            String accountNumber = resultSet.getString("AccountNumber");
+            int transactionLimit = (int) resultSet.getDouble("TransactionLimit");
+            double balance = resultSet.getDouble("Balance");
+            savingsAccountFirst = new SavingsAccount(payeeAddress, accountNumber, balance, transactionLimit);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return savingsAccountFirst;
+    }
+
+    public SavingsAccount getSavingsAccountSecond(String payeeAddress) {
+        SavingsAccount savingsAccountSecond = null;
+        ResultSet resultSet = databaseDriver.getSavingsAccountSecondData(payeeAddress);
+
+        try {
+            String accountNumber = resultSet.getString("AccountNumber");
+            int transactionLimit = (int) resultSet.getDouble("TransactionLimit");
+            double balance = resultSet.getDouble("Balance");
+            savingsAccountSecond = new SavingsAccount(payeeAddress, accountNumber, balance, transactionLimit);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return savingsAccountSecond;
     }
 }

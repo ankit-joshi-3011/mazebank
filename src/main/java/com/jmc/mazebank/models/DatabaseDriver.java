@@ -8,7 +8,7 @@ public class DatabaseDriver {
 
     public DatabaseDriver() {
         try {
-            this.connection = DriverManager.getConnection("jdbc:sqlite:mazebank.db");
+            connection = DriverManager.getConnection("jdbc:sqlite:mazebank.db");
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -20,7 +20,7 @@ public class DatabaseDriver {
         ResultSet resultSet = null;
 
         try {
-            statement = this.connection.createStatement();
+            statement = connection.createStatement();
             resultSet = statement.executeQuery("SELECT * FROM Clients WHERE PayeeAddress = '" + payeeAddress + "' AND Password = '" + password + "';");
         } catch (SQLException e) {
             e.printStackTrace();
@@ -35,7 +35,7 @@ public class DatabaseDriver {
         ResultSet resultSet = null;
 
         try {
-            statement = this.connection.createStatement();
+            statement = connection.createStatement();
             resultSet = statement.executeQuery("SELECT * FROM Admins WHERE Username = '" + userName + "' AND Password = '" + password + "';");
         } catch (SQLException e) {
             e.printStackTrace();
@@ -48,7 +48,7 @@ public class DatabaseDriver {
         Statement statement = null;
 
         try {
-            statement = this.connection.createStatement();
+            statement = connection.createStatement();
             statement.executeUpdate("INSERT INTO " +
                 "Clients(FirstName, LastName, PayeeAddress, Password, Date)" +
                 "VALUES ('" + firstName + "', '" + lastName + "', '" + payeeAddress + "', '" + password + "', '" + date.toString() + "');"
@@ -62,7 +62,7 @@ public class DatabaseDriver {
         Statement statement = null;
 
         try {
-            statement = this.connection.createStatement();
+            statement = connection.createStatement();
             statement.executeUpdate("INSERT INTO " +
                     "SavingsAccountFirst(Owner, AccountNumber, TransactionLimit, Balance)" +
                     "VALUES ('" + owner + "', '" + accountNumber + "', " + transactionLimit + ", " + balance + ");"
@@ -76,7 +76,7 @@ public class DatabaseDriver {
         Statement statement = null;
 
         try {
-            statement = this.connection.createStatement();
+            statement = connection.createStatement();
             statement.executeUpdate("INSERT INTO " +
                     "SavingsAccountSecond(Owner, AccountNumber, TransactionLimit, Balance)" +
                     "VALUES ('" + owner + "', '" + accountNumber + "', " + transactionLimit + ", " + balance + ");"
@@ -84,6 +84,20 @@ public class DatabaseDriver {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    public ResultSet getAllClientsData() {
+        Statement statement = null;
+        ResultSet resultSet = null;
+
+        try {
+            statement = connection.createStatement();
+            resultSet = statement.executeQuery("SELECT * FROM Clients;");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return resultSet;
     }
 
     // Utility methods
@@ -94,7 +108,7 @@ public class DatabaseDriver {
         int id = 0;
 
         try {
-            statement = this.connection.createStatement();
+            statement = connection.createStatement();
             resultSet = statement.executeQuery("SELECT * FROM sqlite_sequence WHERE name='Clients';");
             id = resultSet.getInt("seq");
         } catch (SQLException e) {
@@ -102,5 +116,33 @@ public class DatabaseDriver {
         }
 
         return id;
+    }
+
+    public ResultSet getSavingsAccountFirstData(String payeeAddress) {
+        Statement statement = null;
+        ResultSet resultSet = null;
+
+        try {
+            statement = connection.createStatement();
+            resultSet = statement.executeQuery("SELECT * FROM SavingsAccountFirst WHERE owner = '" + payeeAddress + "';");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return resultSet;
+    }
+
+    public ResultSet getSavingsAccountSecondData(String payeeAddress) {
+        Statement statement = null;
+        ResultSet resultSet = null;
+
+        try {
+            statement = connection.createStatement();
+            resultSet = statement.executeQuery("SELECT * FROM SavingsAccountSecond WHERE owner = '" + payeeAddress + "';");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return resultSet;
     }
 }
