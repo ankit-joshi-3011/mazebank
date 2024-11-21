@@ -5,9 +5,14 @@ import com.jmc.mazebank.controllers.client.ClientController;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -97,6 +102,31 @@ public class ViewFactory {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/Login.fxml"));
 
         createStage(loader);
+    }
+
+    public void showMessageWindow(String senderPayeeAddress, String message) {
+        StackPane pane = new StackPane();
+
+        HBox hBox = new HBox(5);
+        hBox.setAlignment(Pos.CENTER);
+
+        Label senderPayeeAddressLabel = new Label(senderPayeeAddress);
+        Label messageLabel = new Label(message);
+
+        hBox.getChildren().addAll(senderPayeeAddressLabel, messageLabel);
+
+        pane.getChildren().add(hBox);
+
+        Scene scene = new Scene(pane, 300, 100);
+
+        Stage stage = new Stage();
+        stage.getIcons().add(new Image(String.valueOf(getClass().getResource("/images/icon.png"))));
+        stage.setResizable(false);
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.setTitle("Message");
+        stage.setScene(scene);
+
+        stage.show();
     }
 
     public void showClientWindow() {

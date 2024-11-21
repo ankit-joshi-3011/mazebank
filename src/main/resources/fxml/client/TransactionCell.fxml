@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Line?>
-
 
 <AnchorPane prefHeight="60.0" prefWidth="550.0" styleClass="cell_container" stylesheets="@../../styles/transactioncell.css" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml">
     <VBox prefHeight="50.0" prefWidth="50.0" styleClass="transaction_icon_container" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="5.0">
@@ -21,4 +21,9 @@
             <FontAwesomeIconView glyphName="RUPEE" />
          </graphic>
     </Label>
+   <Button fx:id="message_button" layoutX="425.0" layoutY="19.0" mnemonicParsing="false" styleClass="message_button" AnchorPane.rightAnchor="75.0" AnchorPane.topAnchor="18.0">
+      <graphic>
+         <FontAwesomeIconView glyphName="BELL" size="14" />
+      </graphic>
+   </Button>
 </AnchorPane>

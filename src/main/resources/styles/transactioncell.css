@@ -24,6 +24,18 @@
     -fx-stroke: #EEEEEE;
 }
 
+.message_button {
+    -fx-background-color: #FFFFFF;
+}
+
+.message_button FontAwesomeIconView {
+    -fx-fill: #132A13;
+}
+
+.message_button:hover {
+    -fx-cursor: hand;
+}
+
 .transaction_amount_label {
     -fx-background-color: #132A13;
     -fx-background-radius: 2;
