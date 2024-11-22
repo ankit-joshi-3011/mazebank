@@ -30,16 +30,16 @@ public class CreateClientController implements Initializable {
     Label payee_address_label;
 
     @FXML
-    CheckBox savings_account_first_box;
+    CheckBox savings_account_box;
 
     @FXML
-    TextField savings_account_first_amount_field;
+    TextField savings_account_amount_field;
 
     @FXML
-    CheckBox savings_account_second_box;
+    CheckBox pension_account_box;
 
     @FXML
-    TextField savings_account_second_amount_field;
+    TextField pension_account_amount_field;
 
     @FXML
     Button create_client_button;
@@ -61,12 +61,12 @@ public class CreateClientController implements Initializable {
     }
 
     private void createClient() {
-        if (savings_account_first_box.isSelected()) {
-            createSavingsAccountFirst();
+        if (savings_account_box.isSelected()) {
+            createSavingsAccount();
         }
 
-        if (savings_account_second_box.isSelected()) {
-            createSavingsAccountSecond();
+        if (pension_account_box.isSelected()) {
+            createPensionAccount();
         }
 
         String firstName = first_name_field.getText();
@@ -81,8 +81,8 @@ public class CreateClientController implements Initializable {
         clearFields();
     }
 
-    private void createSavingsAccountFirst() {
-        double balance = Double.parseDouble(savings_account_first_amount_field.getText());
+    private void createSavingsAccount() {
+        double balance = Double.parseDouble(savings_account_amount_field.getText());
 
         // Generate Account Number
         String firstSection = "3201";
@@ -90,11 +90,11 @@ public class CreateClientController implements Initializable {
         String accountNumber = firstSection + " " + lastSection;
 
         // Create the account
-        Model.getInstance().createSavingsAccountFirst(payeeAddress, accountNumber, (double) 10, 50000.0);
+        Model.getInstance().createSavingsAccountFirst(payeeAddress, accountNumber, (double) 10, balance);
     }
 
-    private void createSavingsAccountSecond() {
-        double balance = Double.parseDouble(savings_account_second_amount_field.getText());
+    private void createPensionAccount() {
+        double balance = Double.parseDouble(pension_account_amount_field.getText());
 
         // Generate Account Number
         String firstSection = "3201";
@@ -102,7 +102,7 @@ public class CreateClientController implements Initializable {
         String accountNumber = firstSection + " " + lastSection;
 
         // Create the account
-        Model.getInstance().createSavingsAccountSecond(payeeAddress, accountNumber, (double) 10, balance);
+        Model.getInstance().createSavingsAccountSecond(payeeAddress, accountNumber, (double) 1000, balance);
     }
 
     private void onCreatePayeeAddress() {
@@ -125,9 +125,9 @@ public class CreateClientController implements Initializable {
         password_field.clear();
         payee_address_box.setSelected(false);
         payee_address_label.setText("");
-        savings_account_first_box.setSelected(false);
-        savings_account_first_amount_field.clear();
-        savings_account_second_box.setSelected(false);
-        savings_account_second_amount_field.clear();
+        savings_account_box.setSelected(false);
+        savings_account_amount_field.clear();
+        pension_account_box.setSelected(false);
+        pension_account_amount_field.clear();
     }
 }

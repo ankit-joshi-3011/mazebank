@@ -21,12 +21,12 @@
         <CheckBox fx:id="payee_address_box" mnemonicParsing="false" />
         <Label fx:id="payee_address_label" styleClass="payee_address_label" />
         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Accounts" />
-        <CheckBox fx:id="savings_account_first_box" mnemonicParsing="false" text="Add Savings Account 1" />
-        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Savings Account 1 Balance" />
-        <TextField fx:id="savings_account_first_amount_field" />
-        <CheckBox fx:id="savings_account_second_box" mnemonicParsing="false" text="Add Savings Account 2" />
-        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Savings Account 2 Balance" />
-        <TextField fx:id="savings_account_second_amount_field" />
+        <CheckBox fx:id="savings_account_box" mnemonicParsing="false" text="Add Savings Account" />
+        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Savings Account Balance" />
+        <TextField fx:id="savings_account_amount_field" />
+        <CheckBox fx:id="pension_account_box" mnemonicParsing="false" text="Add Pension Account" />
+        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Pension Account Balance" />
+        <TextField fx:id="pension_account_amount_field" />
         <Button fx:id="create_client_button" mnemonicParsing="false" text="Create New Client" />
         <Label fx:id="error_label" styleClass="error_label" />
     </VBox>
