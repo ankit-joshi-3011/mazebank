@@ -182,17 +182,7 @@ public class DatabaseDriver {
     }
 
     public ResultSet searchClient(String payeeAddress) {
-        Statement statement = null;
-        ResultSet resultSet = null;
-
-        try {
-            statement = connection.createStatement();
-            resultSet = statement.executeQuery("SELECT * FROM Clients WHERE PayeeAddress = '" + payeeAddress + "';");
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        return resultSet;
+        return tryExecuteQuery("SELECT * FROM Clients WHERE PayeeAddress = '" + payeeAddress + "';");
     }
 
     public void depositSavings(String payeeAddress, double amount) {
