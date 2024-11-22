@@ -57,8 +57,8 @@ public class Model {
                     Integer.parseInt(dateParts[2])
                 );
                 client.dateCreatedProperty().set(date);
-                client.savingsAccountFirstProperty().set(getSavingsAccountFirst(payeeAddress));
-                client.savingsAccountSecondProperty().set(getSavingsAccountSecond(payeeAddress));
+                client.savingsAccountProperty().set(getSavingsAccount(payeeAddress));
+                client.pensionAccountProperty().set(getPensionAccount(payeeAddress));
 
                 return true;
             }
@@ -165,8 +165,8 @@ public class Model {
                     Integer.parseInt(dateParts[2])
                 );
 
-                savingsAccountFirst = getSavingsAccountFirst(payeeAddress);
-                savingsAccountSecond = getSavingsAccountSecond(payeeAddress);
+                savingsAccountFirst = getSavingsAccount(payeeAddress);
+                savingsAccountSecond = getPensionAccount(payeeAddress);
 
                 clients.add(new Client(firstName, lastName, payeeAddress, savingsAccountFirst, savingsAccountSecond, date));
             }
@@ -177,7 +177,7 @@ public class Model {
 
     public void updateBalance(String receiver, double amount, boolean addOrSubtract) {
         databaseDriver.updateBalance(receiver, amount, addOrSubtract);
-        client.savingsAccountSecondProperty().get().setBalance(amount, false);
+        client.pensionAccountProperty().get().setBalance(amount, false);
     }
 
     public void newTransaction(String sender, String receiver, double amount, String message) {
@@ -185,7 +185,7 @@ public class Model {
     }
 
     // Utility Methods
-    public SavingsAccount getSavingsAccountFirst(String payeeAddress) {
+    public SavingsAccount getSavingsAccount(String payeeAddress) {
         SavingsAccount savingsAccountFirst = null;
         ResultSet resultSet = databaseDriver.getSavingsAccountFirstData(payeeAddress);
 
@@ -201,7 +201,7 @@ public class Model {
         return savingsAccountFirst;
     }
 
-    public SavingsAccount getSavingsAccountSecond(String payeeAddress) {
+    public SavingsAccount getPensionAccount(String payeeAddress) {
         SavingsAccount savingsAccountSecond = null;
         ResultSet resultSet = databaseDriver.getSavingsAccountSecondData(payeeAddress);
 
@@ -230,7 +230,7 @@ public class Model {
                 Integer.parseInt(dateParts[2])
             );
 
-            searchResults.add(new Client(firstName, lastName, payeeAddress, getSavingsAccountFirst(payeeAddress), getSavingsAccountSecond(payeeAddress), date));
+            searchResults.add(new Client(firstName, lastName, payeeAddress, getSavingsAccount(payeeAddress), getPensionAccount(payeeAddress), date));
         } catch (SQLException e) {
             e.printStackTrace();
         }

@@ -6,15 +6,14 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 
-
 <AnchorPane prefHeight="50.0" prefWidth="750.0" styleClass="client_cell_container" stylesheets="@../../styles/clientcell.css" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml">
     <FontAwesomeIconView glyphName="USER" size="20" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="14.0" />
     <HBox prefHeight="40.0" prefWidth="550.0" AnchorPane.leftAnchor="60.0" AnchorPane.topAnchor="5.0">
-        <Label fx:id="first_name_label" text="Benjamin" />
-        <Label fx:id="last_name_label" text="Baker" />
-        <Label fx:id="payee_address_label" text="\@bBaker1" />
-        <Label fx:id="savings_account_first_label" styleClass="account_display_label" text="25469921" />
-        <Label fx:id="savings_account_second_label" styleClass="account_display_label" text="23330213" />
+        <Label fx:id="first_name_label" text="Ankit" />
+        <Label fx:id="last_name_label" text="Joshi" />
+        <Label fx:id="payee_address_label" text="\@aJoshi10" />
+        <Label fx:id="savings_account_label" styleClass="account_display_label" text="25469921" />
+        <Label fx:id="pension_account_label" styleClass="account_display_label" text="23330213" />
         <Label fx:id="date_label" text="21-11-2024" />
     </HBox>
     <Button fx:id="delete_button" mnemonicParsing="false" styleClass="delete_button" text="Delete" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="12.0">

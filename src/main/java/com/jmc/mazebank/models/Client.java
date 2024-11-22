@@ -11,16 +11,16 @@ public class Client {
     private final StringProperty firstName;
     private final StringProperty lastName;
     private final StringProperty payeeAddress;
-    private final ObjectProperty<Account> savingsAccountFirst;
-    private final ObjectProperty<Account> savingsAccountSecond;
+    private final ObjectProperty<Account> savingsAccount;
+    private final ObjectProperty<Account> pensionAccount;
     private final ObjectProperty<LocalDate> dateCreated;
 
-    public Client(String firstName, String lastName, String payeeAddress, Account savingsAccountFirst, Account savingsAccountSecond, LocalDate dateCreated) {
+    public Client(String firstName, String lastName, String payeeAddress, Account savingsAccount, Account pensionAccount, LocalDate dateCreated) {
         this.firstName = new SimpleStringProperty(this, "firstName", firstName);
         this.lastName = new SimpleStringProperty(this, "lastName", lastName);
         this.payeeAddress = new SimpleStringProperty(this, "payeeAddress", payeeAddress);
-        this.savingsAccountFirst = new SimpleObjectProperty<>(this, "savingsAccountFirst", savingsAccountFirst);
-        this.savingsAccountSecond = new SimpleObjectProperty<>(this, "savingsAccountSecond", savingsAccountSecond);
+        this.savingsAccount = new SimpleObjectProperty<>(this, "savingsAccount", savingsAccount);
+        this.pensionAccount = new SimpleObjectProperty<>(this, "pensionAccount", pensionAccount);
         this.dateCreated = new SimpleObjectProperty<>(this, "dateCreated", dateCreated);
     }
 
@@ -36,12 +36,12 @@ public class Client {
         return payeeAddress;
     }
 
-    public ObjectProperty<Account> savingsAccountFirstProperty() {
-        return savingsAccountFirst;
+    public ObjectProperty<Account> savingsAccountProperty() {
+        return savingsAccount;
     }
 
-    public ObjectProperty<Account> savingsAccountSecondProperty() {
-        return savingsAccountSecond;
+    public ObjectProperty<Account> pensionAccountProperty() {
+        return pensionAccount;
     }
 
     public ObjectProperty<LocalDate> dateCreatedProperty() {

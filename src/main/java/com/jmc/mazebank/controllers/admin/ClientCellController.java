@@ -22,10 +22,10 @@ public class ClientCellController implements Initializable {
     private Label payee_address_label;
 
     @FXML
-    private Label savings_account_first_label;
+    private Label savings_account_label;
 
     @FXML
-    private Label savings_account_second_label;
+    private Label pension_account_label;
 
     @FXML
     private Label date_label;
@@ -42,8 +42,8 @@ public class ClientCellController implements Initializable {
         first_name_label.textProperty().bind(client.firstNameProperty());
         last_name_label.textProperty().bind(client.lastNameProperty());
         payee_address_label.textProperty().bind(client.payeeAddressProperty());
-        savings_account_first_label.textProperty().bind(client.savingsAccountFirstProperty().asString());
-        savings_account_second_label.textProperty().bind(client.savingsAccountSecondProperty().asString());
+        savings_account_label.textProperty().bind(client.savingsAccountProperty().asString());
+        pension_account_label.textProperty().bind(client.pensionAccountProperty().asString());
         date_label.textProperty().bind(client.dateCreatedProperty().asString());
     }
 }

@@ -23,16 +23,16 @@ public class DashboardController implements Initializable {
     private Label login_date;
 
     @FXML
-    private Label savings_account_first_balance;
+    private Label savings_account_balance;
 
     @FXML
-    private Label savings_account_first_number;
+    private Label savings_account_number;
 
     @FXML
-    private Label savings_account_second_balance;
+    private Label pension_account_balance;
 
     @FXML
-    private Label savings_account_second_number;
+    private Label pension_account_number;
 
     @FXML
     private Label income_label;
@@ -68,10 +68,10 @@ public class DashboardController implements Initializable {
     private void bindData() {
         user_name.textProperty().bind(Bindings.concat("Hi, ", Model.getInstance().getClient().firstNameProperty()));
         login_date.setText("Today, " + LocalDate.now());
-        savings_account_first_balance.textProperty().bind(Model.getInstance().getClient().savingsAccountFirstProperty().get().balanceProperty().asString());
-        savings_account_first_number.textProperty().bind(Model.getInstance().getClient().savingsAccountFirstProperty().get().accountNumberProperty());
-        savings_account_second_balance.textProperty().bind(Model.getInstance().getClient().savingsAccountSecondProperty().get().balanceProperty().asString());
-        savings_account_second_number.textProperty().bind(Model.getInstance().getClient().savingsAccountSecondProperty().get().accountNumberProperty());
+        savings_account_balance.textProperty().bind(Model.getInstance().getClient().savingsAccountProperty().get().balanceProperty().asString());
+        savings_account_number.textProperty().bind(Model.getInstance().getClient().savingsAccountProperty().get().accountNumberProperty());
+        pension_account_balance.textProperty().bind(Model.getInstance().getClient().pensionAccountProperty().get().balanceProperty().asString());
+        pension_account_number.textProperty().bind(Model.getInstance().getClient().pensionAccountProperty().get().accountNumberProperty());
     }
 
     private void initializeLatestTransactionsList() {

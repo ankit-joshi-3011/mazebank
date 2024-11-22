@@ -20,24 +20,24 @@
     <Text layoutX="460.0" layoutY="103.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="section_title" text="My Accounts" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="90.0" />
     <HBox layoutX="20.0" layoutY="118.0" prefHeight="180.0" prefWidth="620.0" styleClass="accounts_view" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="120.0">
         <AnchorPane prefHeight="150.0" prefWidth="295.0">
-            <Label fx:id="savings_account_first_balance" styleClass="account_balance" text="Rs. 4,00,000.00" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="25.0" />
+            <Label fx:id="savings_account_balance" styleClass="account_balance" text="Rs. 4,00,000.00" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="25.0" />
             <Label layoutX="24.0" layoutY="35.0" styleClass="account_number" text="**** **** ****" AnchorPane.bottomAnchor="45.0" AnchorPane.leftAnchor="14.0" />
-            <Label fx:id="savings_account_first_number" styleClass="account_number" text="4558" AnchorPane.bottomAnchor="45.0" AnchorPane.leftAnchor="138.0" />
+            <Label fx:id="savings_account_number" styleClass="account_number" text="4558" AnchorPane.bottomAnchor="45.0" AnchorPane.leftAnchor="138.0" />
             <VBox prefHeight="100.0" prefWidth="35.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="14.0" />
             <FontAwesomeIconView glyphName="BANK" layoutX="258.0" layoutY="29.0" size="30" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="7.0" />
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Savings Account 1" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="14.0" />
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Savings Account" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="14.0" />
             <styleClass>
                 <String fx:value="account" />
                 <String fx:value="account_gradient" />
             </styleClass>
         </AnchorPane>
         <AnchorPane layoutX="10.0" layoutY="10.0" prefHeight="150.0" prefWidth="295.0">
-            <Label fx:id="savings_account_second_balance" styleClass="account_balance" text="Rs. 4,00,000.00" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="25.0" />
+            <Label fx:id="pension_account_balance" styleClass="account_balance" text="Rs. 4,00,000.00" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="25.0" />
             <Label layoutX="24.0" layoutY="35.0" styleClass="account_number" text="**** **** ****" AnchorPane.bottomAnchor="45.0" AnchorPane.leftAnchor="14.0" />
-            <Label fx:id="savings_account_second_number" styleClass="account_number" text="4558" AnchorPane.bottomAnchor="45.0" AnchorPane.leftAnchor="138.0" />
+            <Label fx:id="pension_account_number" styleClass="account_number" text="4559" AnchorPane.bottomAnchor="45.0" AnchorPane.leftAnchor="138.0" />
             <VBox prefHeight="100.0" prefWidth="35.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="14.0" />
             <FontAwesomeIconView glyphName="BANK" layoutX="258.0" layoutY="29.0" size="30" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="7.0" />
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Savings Account 2" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="14.0" />
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Pension Account" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="14.0" />
             <styleClass>
                 <String fx:value="account" />
                 <String fx:value="account_gradient" />
