@@ -39,7 +39,6 @@ public class Model {
         return model;
     }
 
-    // Client method section
     public boolean evaluateClientCredentials(String payeeAddress, String password) {
         ResultSet resultSet = databaseDriver.getClientData(payeeAddress, password);
 
@@ -105,7 +104,6 @@ public class Model {
         return allTransactions;
     }
 
-    // Admin method section
     public boolean evaluateAdminCredentials(String userName, String password) {
         ResultSet resultSet = databaseDriver.getAdminData(userName, password);
 
@@ -183,7 +181,6 @@ public class Model {
         allTransactions.addFirst(newTransaction);
     }
 
-    // Utility Methods
     public SavingsAccount getSavingsAccount(String payeeAddress) {
         SavingsAccount savingsAccount = null;
         ResultSet resultSet = databaseDriver.getAccountData(payeeAddress, true);
