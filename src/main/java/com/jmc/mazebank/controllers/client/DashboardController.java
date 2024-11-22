@@ -69,9 +69,9 @@ public class DashboardController implements Initializable {
     private void bindData() {
         user_name.textProperty().bind(Bindings.concat("Hi, ", Model.getInstance().getClient().firstNameProperty()));
         login_date.setText("Today, " + LocalDate.now());
-        savings_account_balance.textProperty().bind(Bindings.format("%s", NumberFormat.getCurrencyInstance(Locale.getDefault()).format(Model.getInstance().getClient().savingsAccountProperty().get().balanceProperty().get())));
+        savings_account_balance.textProperty().bind(Bindings.concat("Rs. ", Model.getInstance().getClient().savingsAccountProperty().get().balanceProperty()));
         savings_account_number.textProperty().bind(Model.getInstance().getClient().savingsAccountProperty().get().accountNumberProperty());
-        pension_account_balance.textProperty().bind(Bindings.format("%s", NumberFormat.getCurrencyInstance(Locale.getDefault()).format(Model.getInstance().getClient().pensionAccountProperty().get().balanceProperty().get())));
+        pension_account_balance.textProperty().bind(Bindings.concat("Rs. ", Model.getInstance().getClient().pensionAccountProperty().get().balanceProperty()));
         pension_account_number.textProperty().bind(Model.getInstance().getClient().pensionAccountProperty().get().accountNumberProperty());
     }
 
