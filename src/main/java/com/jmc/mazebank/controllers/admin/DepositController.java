@@ -27,7 +27,7 @@ public class DepositController implements Initializable {
     private TextField amount_field;
 
     @FXML
-    Button deposit_button;
+    private Button deposit_button;
 
     private Client client;
 
