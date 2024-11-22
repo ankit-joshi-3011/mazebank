@@ -16,11 +16,11 @@
         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Maze Bank" />
     </VBox>
     <VBox layoutX="212.0" layoutY="20.0" prefHeight="350.0" prefWidth="350.0" styleClass="login_form_container" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
-        <Label id="choice-prompt-text" text="Choose Your Account Type" />
+        <Label id="choice-prompt-text" text="Choose Your Account Type:" />
         <ChoiceBox fx:id="acc_selector" prefWidth="90.0" styleClass="account_selector" />
-        <Label fx:id="payee_address_label" text="Payee Address" />
+        <Label fx:id="payee_address_label" text="Payee Address:" />
         <TextField fx:id="payee_address_field" styleClass="input_field" />
-        <Label text="Password" />
+        <Label text="Password:" />
         <PasswordField fx:id="password_field" styleClass="input_field" />
         <Button fx:id="login_button" mnemonicParsing="false" text="Login" />
         <Label fx:id="error_label" styleClass="error_label" />
