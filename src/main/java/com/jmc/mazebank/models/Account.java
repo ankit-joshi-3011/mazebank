@@ -32,4 +32,9 @@ public abstract class Account {
     public ObjectProperty<LocalDate> dateCreatedProperty() {
         return dateCreated;
     }
+
+    @Override
+    public String toString() {
+        return accountNumberProperty().get();
+    }
 }
