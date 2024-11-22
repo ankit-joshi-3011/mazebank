@@ -19,16 +19,15 @@ import java.io.IOException;
 
 public class ViewFactory {
     private static ViewFactory viewFactory;
-    // Client Views
+
     private final ObjectProperty<ClientMenuOptions> clientSelectedMenuItem;
-    // Admin Views
     private final ObjectProperty<AdminMenuOptions> adminSelectedMenuItem;
     private AccountType loginAccountType;
 
     private ViewFactory() {
-        loginAccountType = AccountType.CLIENT;
         clientSelectedMenuItem = new SimpleObjectProperty<>();
         adminSelectedMenuItem = new SimpleObjectProperty<>();
+        loginAccountType = AccountType.CLIENT;
     }
 
     public static synchronized ViewFactory getInstance() {
