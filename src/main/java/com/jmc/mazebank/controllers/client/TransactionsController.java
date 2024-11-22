@@ -16,14 +16,7 @@ public class TransactionsController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        initializeAllTransactions();
         transactions_listview.setItems(Model.getInstance().getAllTransactions());
         transactions_listview.setCellFactory(_ -> new TransactionCellFactory());
-    }
-
-    private void initializeAllTransactions() {
-        if (Model.getInstance().getAllTransactions().isEmpty()) {
-            Model.getInstance().setAllTransactions();
-        }
     }
 }

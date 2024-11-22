@@ -15,8 +15,6 @@ public class Model {
     private final Client client;
 
     private final ObservableList<Client> clients;
-    private final ObservableList<Transaction> latestTransactions;
-    private final ObservableList<Transaction> allTransactions;
 
     // Admin Data Section
 
@@ -28,8 +26,6 @@ public class Model {
 
         // Admin Data Section
         clients = FXCollections.observableArrayList();
-        latestTransactions = FXCollections.observableArrayList();
-        allTransactions = FXCollections.observableArrayList();
     }
 
     public static synchronized Model getInstance() {
@@ -73,10 +69,10 @@ public class Model {
         return client;
     }
 
-    private void prepareTransactions(ObservableList<Transaction> transactions, int limit) {
-        ResultSet resultSet = databaseDriver.getTransactions(client.payeeAddressProperty().get(), limit);
+    private ObservableList<Transaction> prepareTransactions(int limit) {
+        ObservableList<Transaction> transactions = FXCollections.observableArrayList();
 
-        try {
+        try (ResultSet resultSet = databaseDriver.getTransactions(client.payeeAddressProperty().get(), limit)) {
             while (resultSet.next()) {
                 String sender = resultSet.getString("Sender");
                 String receiver = resultSet.getString("Receiver");
@@ -94,22 +90,16 @@ public class Model {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-    }
 
-    public void setLatestTransactions() {
-        prepareTransactions(latestTransactions, 4);
+        return transactions;
     }
 
     public ObservableList<Transaction> getLatestTransactions() {
-        return latestTransactions;
-    }
-
-    public void setAllTransactions() {
-        prepareTransactions(allTransactions, -1);
+        return prepareTransactions(4);
     }
 
     public ObservableList<Transaction> getAllTransactions() {
-        return allTransactions;
+        return prepareTransactions(-1);
     }
 
     // Admin method section

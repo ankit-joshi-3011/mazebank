@@ -60,7 +60,6 @@ public class DashboardController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         bindData();
-        initializeLatestTransactionsList();
         transactions_listview.setItems(Model.getInstance().getLatestTransactions());
         transactions_listview.setCellFactory(_ -> new TransactionCellFactory());
         send_money_button.setOnAction(_ -> onSendMoney());
@@ -74,10 +73,6 @@ public class DashboardController implements Initializable {
         savings_account_number.textProperty().bind(Model.getInstance().getClient().savingsAccountProperty().get().accountNumberProperty());
         pension_account_balance.textProperty().bind(Bindings.format("%s", NumberFormat.getCurrencyInstance(Locale.getDefault()).format(Model.getInstance().getClient().pensionAccountProperty().get().balanceProperty().get())));
         pension_account_number.textProperty().bind(Model.getInstance().getClient().pensionAccountProperty().get().accountNumberProperty());
-    }
-
-    private void initializeLatestTransactionsList() {
-        Model.getInstance().setLatestTransactions();
     }
 
     private void onSendMoney() {
@@ -115,10 +110,6 @@ public class DashboardController implements Initializable {
     private void calculateAccountSummary() {
         double income = 0.0;
         double expense = 0.0;
-
-        if (Model.getInstance().getAllTransactions().isEmpty()) {
-            Model.getInstance().setAllTransactions();
-        }
 
         for (Transaction transaction : Model.getInstance().getAllTransactions()) {
             if (transaction.senderProperty().get().equals(Model.getInstance().getClient().payeeAddressProperty().get())) {
