@@ -12,10 +12,10 @@ public class Client {
     private final StringProperty lastName;
     private final StringProperty payeeAddress;
     private final ObjectProperty<SavingsAccount> savingsAccount;
-    private final ObjectProperty<Account> pensionAccount;
+    private final ObjectProperty<PensionAccount> pensionAccount;
     private final ObjectProperty<LocalDate> dateCreated;
 
-    public Client(String firstName, String lastName, String payeeAddress, SavingsAccount savingsAccount, Account pensionAccount, LocalDate dateCreated) {
+    public Client(String firstName, String lastName, String payeeAddress, SavingsAccount savingsAccount, PensionAccount pensionAccount, LocalDate dateCreated) {
         this.firstName = new SimpleStringProperty(this, "firstName", firstName);
         this.lastName = new SimpleStringProperty(this, "lastName", lastName);
         this.payeeAddress = new SimpleStringProperty(this, "payeeAddress", payeeAddress);
@@ -40,7 +40,7 @@ public class Client {
         return savingsAccount;
     }
 
-    public ObjectProperty<Account> pensionAccountProperty() {
+    public ObjectProperty<PensionAccount> pensionAccountProperty() {
         return pensionAccount;
     }
 
