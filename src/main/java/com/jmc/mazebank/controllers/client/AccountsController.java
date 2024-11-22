@@ -9,8 +9,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
 import java.net.URL;
-import java.text.NumberFormat;
-import java.util.Locale;
 import java.util.ResourceBundle;
 
 public class AccountsController implements Initializable {
