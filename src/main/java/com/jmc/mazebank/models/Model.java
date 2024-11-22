@@ -148,8 +148,8 @@ public class Model {
     }
 
     public void setClients() {
-        SavingsAccount savingsAccountFirst;
-        SavingsAccount savingsAccountSecond;
+        SavingsAccount savingsAccount;
+        PensionAccount pensionAccount;
         ResultSet resultSet = databaseDriver.getAllClientsData();
 
         try {
@@ -165,10 +165,10 @@ public class Model {
                     Integer.parseInt(dateParts[2])
                 );
 
-                savingsAccountFirst = getSavingsAccount(payeeAddress);
-                savingsAccountSecond = getPensionAccount(payeeAddress);
+                savingsAccount = getSavingsAccount(payeeAddress);
+                pensionAccount = getPensionAccount(payeeAddress);
 
-                clients.add(new Client(firstName, lastName, payeeAddress, savingsAccountFirst, savingsAccountSecond, date));
+                clients.add(new Client(firstName, lastName, payeeAddress, savingsAccount, pensionAccount, date));
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -208,13 +208,13 @@ public class Model {
         return savingsAccount;
     }
 
-    public SavingsAccount getPensionAccount(String payeeAddress) {
-        SavingsAccount pensionAccount = null;
+    public PensionAccount getPensionAccount(String payeeAddress) {
+        PensionAccount pensionAccount = null;
         ResultSet resultSet = databaseDriver.getPensionAccountData(payeeAddress);
 
         try {
             String accountNumber = resultSet.getString("AccountNumber");
-            int transactionLimit = (int) resultSet.getDouble("TransactionLimit");
+            int withdrawalLimit = (int) resultSet.getDouble("WithdrawalLimit");
             double balance = resultSet.getDouble("Balance");
             String[] dateParts = resultSet.getString("DateCreated").split("-");
             LocalDate date = LocalDate.of(
@@ -223,7 +223,7 @@ public class Model {
                     Integer.parseInt(dateParts[2])
             );
 
-            pensionAccount = new SavingsAccount(payeeAddress, accountNumber, balance, date, transactionLimit);
+            pensionAccount = new PensionAccount(payeeAddress, accountNumber, balance, date, withdrawalLimit);
         } catch (SQLException e) {
             e.printStackTrace();
         }
