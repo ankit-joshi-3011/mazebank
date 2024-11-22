@@ -68,8 +68,8 @@ public class DatabaseDriver {
         tryExecuteUpdate("INSERT INTO " + "SavingsAccount(Owner, AccountNumber, TransactionLimit, Balance)" + "VALUES ('" + owner + "', '" + accountNumber + "', " + transactionLimit + ", " + balance + ");");
     }
 
-    public void createPensionAccount(String owner, String accountNumber, Double transactionLimit, Double balance) {
-        tryExecuteUpdate("INSERT INTO " + "SavingsAccountSecond(Owner, AccountNumber, TransactionLimit, Balance)" + "VALUES ('" + owner + "', '" + accountNumber + "', " + transactionLimit + ", " + balance + ");");
+    public void createPensionAccount(String owner, String accountNumber, Double withdrawalLimit, Double balance) {
+        tryExecuteUpdate("INSERT INTO " + "PensionAccount(Owner, AccountNumber, WithdrawalLimit, Balance)" + "VALUES ('" + owner + "', '" + accountNumber + "', " + withdrawalLimit + ", " + balance + ");");
     }
 
     public ResultSet getAllClientsData() {

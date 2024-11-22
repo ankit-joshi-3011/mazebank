@@ -124,8 +124,8 @@ public class Model {
         databaseDriver.createSavingsAccount(owner, accountNumber, transactionLimit, balance);
     }
 
-    public void createPensionAccount(String owner, String accountNumber, Double transactionLimit, Double balance) {
-        databaseDriver.createPensionAccount(owner, accountNumber, transactionLimit, balance);
+    public void createPensionAccount(String owner, String accountNumber, Double withdrawalLimit, Double balance) {
+        databaseDriver.createPensionAccount(owner, accountNumber, withdrawalLimit, balance);
     }
 
     public void createClient(String firstName, String lastName, String payeeAddress, String password, LocalDate date) {
