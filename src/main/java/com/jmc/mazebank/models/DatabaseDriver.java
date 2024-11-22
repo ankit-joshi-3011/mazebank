@@ -2,6 +2,7 @@ package com.jmc.mazebank.models;
 
 import java.sql.*;
 import java.time.LocalDate;
+import java.util.Optional;
 
 public class DatabaseDriver {
     private Connection connection;
@@ -67,19 +68,10 @@ public class DatabaseDriver {
     }
 
     public void newTransaction(String sender, String receiver, double amount, String message) {
-        Statement statement;
-        ResultSet resultSet = null;
-
-        try {
-            statement = connection.createStatement();
-            LocalDate date = LocalDate.now();
-            statement.executeUpdate("INSERT INTO " +
-                "Transactions(Sender, Receiver, Amount, Date, Message) " +
-                "VALUES('" + sender + "', '" + receiver + "', " + amount + ", '" + date + "', '" + message + "');"
-            );
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        tryExecuteUpdate("INSERT INTO " +
+            "Transactions(Sender, Receiver, Amount, Date, Message) " +
+            "VALUES('" + sender + "', '" + receiver + "', " + amount + ", '" + LocalDate.now() + "', '" + message + "');"
+        );
     }
 
     // Admin Section
@@ -221,6 +213,38 @@ public class DatabaseDriver {
             statement.executeUpdate("UPDATE SavingsAccountSecond SET Balance = " + amount + " WHERE Owner = '" + payeeAddress + "';");
         } catch (SQLException e) {
             e.printStackTrace();
+        }
+    }
+
+    public void updateSavingsAccountBalance(String payeeAddress, double balance) {
+        tryExecuteUpdate("UPDATE SavingsAccount SET Balance = " + balance + " WHERE Owner = '" + payeeAddress + "';");
+    }
+
+    public void updatePensionAccountBalance(String payeeAddress, double balance) {
+        tryExecuteUpdate("UPDATE PensionAccount SET Balance = " + balance + " WHERE Owner = '" + payeeAddress + "';");
+    }
+
+    private Statement tryCreateStatement() {
+        Statement statement = null;
+
+        try {
+            statement = connection.createStatement();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return statement;
+    }
+
+    private void tryExecuteUpdate(String updateQuery) {
+        Optional<Statement> statement = Optional.ofNullable(tryCreateStatement());
+
+        if (statement.isPresent()) {
+            try {
+                statement.get().executeUpdate(updateQuery);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
     }
 }

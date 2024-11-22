@@ -255,4 +255,12 @@ public class Model {
     public void depositSavings(String payeeAddress, double amount) {
         databaseDriver.depositSavings(payeeAddress, amount);
     }
+
+    public void updateSavingsAccountBalance(String payeeAddress, double balance) {
+        databaseDriver.updateSavingsAccountBalance(payeeAddress, balance);
+    }
+
+    public void updatePensionAccountBalance(String payeeAddress, double balance) {
+        databaseDriver.updatePensionAccountBalance(payeeAddress, balance);
+    }
 }
