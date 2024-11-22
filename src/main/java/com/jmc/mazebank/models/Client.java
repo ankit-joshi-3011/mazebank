@@ -11,11 +11,11 @@ public class Client {
     private final StringProperty firstName;
     private final StringProperty lastName;
     private final StringProperty payeeAddress;
-    private final ObjectProperty<Account> savingsAccount;
+    private final ObjectProperty<SavingsAccount> savingsAccount;
     private final ObjectProperty<Account> pensionAccount;
     private final ObjectProperty<LocalDate> dateCreated;
 
-    public Client(String firstName, String lastName, String payeeAddress, Account savingsAccount, Account pensionAccount, LocalDate dateCreated) {
+    public Client(String firstName, String lastName, String payeeAddress, SavingsAccount savingsAccount, Account pensionAccount, LocalDate dateCreated) {
         this.firstName = new SimpleStringProperty(this, "firstName", firstName);
         this.lastName = new SimpleStringProperty(this, "lastName", lastName);
         this.payeeAddress = new SimpleStringProperty(this, "payeeAddress", payeeAddress);
@@ -36,7 +36,7 @@ public class Client {
         return payeeAddress;
     }
 
-    public ObjectProperty<Account> savingsAccountProperty() {
+    public ObjectProperty<SavingsAccount> savingsAccountProperty() {
         return savingsAccount;
     }
 
