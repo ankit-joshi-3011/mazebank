@@ -16,14 +16,10 @@
     <Label fx:id="sender_label" styleClass="transaction_payee_address_label" text="Patrick" AnchorPane.leftAnchor="200.0" AnchorPane.topAnchor="22.0" />
     <Line endY="20.0" AnchorPane.bottomAnchor="22.0" AnchorPane.leftAnchor="300.0" AnchorPane.topAnchor="20.0" />
     <Label fx:id="receiver_label" styleClass="transaction_payee_address_label" text="Benjamin" AnchorPane.leftAnchor="365.0" AnchorPane.topAnchor="22.0" />
-    <Label fx:id="amount_label" styleClass="transaction_amount_label" text="2,000" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="18.0">
+    <Label fx:id="amount_label" styleClass="transaction_amount_label" text="Rs. 2,000" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="18.0" />
+    <Button fx:id="message_button" layoutX="425.0" layoutY="19.0" mnemonicParsing="false" styleClass="message_button" AnchorPane.rightAnchor="90.0" AnchorPane.topAnchor="18.0">
         <graphic>
-            <FontAwesomeIconView glyphName="RUPEE" />
-         </graphic>
-    </Label>
-   <Button fx:id="message_button" layoutX="425.0" layoutY="19.0" mnemonicParsing="false" styleClass="message_button" AnchorPane.rightAnchor="75.0" AnchorPane.topAnchor="18.0">
-      <graphic>
-         <FontAwesomeIconView glyphName="BELL" size="14" />
-      </graphic>
-   </Button>
+            <FontAwesomeIconView glyphName="BELL" size="14" />
+        </graphic>
+    </Button>
 </AnchorPane>

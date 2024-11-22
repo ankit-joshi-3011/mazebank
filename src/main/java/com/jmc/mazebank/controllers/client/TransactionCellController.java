@@ -4,6 +4,7 @@ import com.jmc.mazebank.models.Model;
 import com.jmc.mazebank.models.Transaction;
 import com.jmc.mazebank.views.ViewFactory;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
+import javafx.beans.binding.Bindings;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -45,7 +46,7 @@ public class TransactionCellController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         sender_label.textProperty().bind(transaction.senderProperty());
         receiver_label.textProperty().bind(transaction.receiverProperty());
-        amount_label.textProperty().bind(transaction.amountProperty().asString());
+        amount_label.textProperty().bind(Bindings.concat("Rs. ", transaction.amountProperty()));
         transaction_date_label.textProperty().bind(transaction.dateProperty().asString());
         message_button.setOnAction(_ -> ViewFactory.getInstance().showMessageWindow(transaction.senderProperty().get(), transaction.messageProperty().get()));
         setTransactionIcons();
