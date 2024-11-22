@@ -83,26 +83,20 @@ public class CreateClientController implements Initializable {
 
     private void createSavingsAccount() {
         double balance = Double.parseDouble(savings_account_amount_field.getText());
-
-        // Generate Account Number
-        String firstSection = "3201";
-        String lastSection = Integer.toString(new Random().nextInt(9999) + 1000);
-        String accountNumber = firstSection + " " + lastSection;
-
-        // Create the account
-        Model.getInstance().createSavingsAccount(payeeAddress, accountNumber, (double) 10, balance);
+        Model.getInstance().createSavingsAccount(payeeAddress, generateAccountNumber(), (double) 10, balance);
     }
 
     private void createPensionAccount() {
         double balance = Double.parseDouble(pension_account_amount_field.getText());
+        Model.getInstance().createPensionAccount(payeeAddress, generateAccountNumber(), (double) 1000, balance);
+    }
 
-        // Generate Account Number
+    private String generateAccountNumber() {
         String firstSection = "3201";
         String lastSection = Integer.toString(new Random().nextInt(9999) + 1000);
         String accountNumber = firstSection + " " + lastSection;
 
-        // Create the account
-        Model.getInstance().createPensionAccount(payeeAddress, accountNumber, (double) 1000, balance);
+        return accountNumber;
     }
 
     private void onCreatePayeeAddress() {
