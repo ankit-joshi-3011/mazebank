@@ -133,7 +133,15 @@ public class Model {
     }
 
     public int getLastClientId() {
-        return databaseDriver.getLastClientId();
+        int id = 0;
+
+        try (ResultSet resultSet = databaseDriver.getLastClientId()) {
+            id = resultSet.getInt("seq");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return id;
     }
 
     public ObservableList<Client> getClients() {
@@ -178,7 +186,7 @@ public class Model {
     // Utility Methods
     public SavingsAccount getSavingsAccount(String payeeAddress) {
         SavingsAccount savingsAccount = null;
-        ResultSet resultSet = databaseDriver.getSavingsAccountData(payeeAddress);
+        ResultSet resultSet = databaseDriver.getAccountData(payeeAddress, true);
 
         try {
             String accountNumber = resultSet.getString("AccountNumber");
@@ -197,7 +205,7 @@ public class Model {
 
     public PensionAccount getPensionAccount(String payeeAddress) {
         PensionAccount pensionAccount = null;
-        ResultSet resultSet = databaseDriver.getPensionAccountData(payeeAddress);
+        ResultSet resultSet = databaseDriver.getAccountData(payeeAddress, false);
 
         try {
             String accountNumber = resultSet.getString("AccountNumber");

@@ -15,19 +15,8 @@ public class DatabaseDriver {
         }
     }
 
-    // Client Section
     public ResultSet getClientData(String payeeAddress, String password) {
-        Statement statement = null;
-        ResultSet resultSet = null;
-
-        try {
-            statement = connection.createStatement();
-            resultSet = statement.executeQuery("SELECT * FROM Clients WHERE PayeeAddress = '" + payeeAddress + "' AND Password = '" + password + "';");
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        return resultSet;
+        return tryExecuteQuery("SELECT * FROM Clients WHERE PayeeAddress = '" + payeeAddress + "' AND Password = '" + password + "';");
     }
 
     public ResultSet getTransactions(String payeeAddress, int limit) {
@@ -38,30 +27,12 @@ public class DatabaseDriver {
         tryExecuteUpdate("INSERT INTO " + "Transactions(Sender, Receiver, Amount, Date, Message) " + "VALUES('" + sender + "', '" + receiver + "', " + amount + ", '" + date + "', '" + message + "');");
     }
 
-    // Admin Section
     public ResultSet getAdminData(String userName, String password) {
-        Statement statement = null;
-        ResultSet resultSet = null;
-
-        try {
-            statement = connection.createStatement();
-            resultSet = statement.executeQuery("SELECT * FROM Admins WHERE Username = '" + userName + "' AND Password = '" + password + "';");
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        return resultSet;
+        return tryExecuteQuery("SELECT * FROM Admins WHERE Username = '" + userName + "' AND Password = '" + password + "';");
     }
 
     public void createClient(String firstName, String lastName, String payeeAddress, String password, LocalDate date) {
-        Statement statement = null;
-
-        try {
-            statement = connection.createStatement();
-            statement.executeUpdate("INSERT INTO " + "Clients(FirstName, LastName, PayeeAddress, Password, Date)" + "VALUES ('" + firstName + "', '" + lastName + "', '" + payeeAddress + "', '" + password + "', '" + date.toString() + "');");
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        tryExecuteUpdate("INSERT INTO " + "Clients(FirstName, LastName, PayeeAddress, Password, Date)" + "VALUES ('" + firstName + "', '" + lastName + "', '" + payeeAddress + "', '" + password + "', '" + date.toString() + "');");
     }
 
     public void createSavingsAccount(String owner, String accountNumber, Double transactionLimit, Double balance) {
@@ -73,63 +44,15 @@ public class DatabaseDriver {
     }
 
     public ResultSet getAllClientsData() {
-        Statement statement = null;
-        ResultSet resultSet = null;
-
-        try {
-            statement = connection.createStatement();
-            resultSet = statement.executeQuery("SELECT * FROM Clients;");
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        return resultSet;
+        return tryExecuteQuery("SELECT * FROM Clients;");
     }
 
-    // Utility methods
-    public int getLastClientId() {
-        Statement statement = null;
-        ResultSet resultSet = null;
-
-        int id = 0;
-
-        try {
-            statement = connection.createStatement();
-            resultSet = statement.executeQuery("SELECT * FROM sqlite_sequence WHERE name='Clients';");
-            id = resultSet.getInt("seq");
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        return id;
+    public ResultSet getLastClientId() {
+        return tryExecuteQuery("SELECT * FROM sqlite_sequence WHERE name='Clients';");
     }
 
-    public ResultSet getSavingsAccountData(String payeeAddress) {
-        Statement statement;
-        ResultSet resultSet = null;
-
-        try {
-            statement = connection.createStatement();
-            resultSet = statement.executeQuery("SELECT * FROM SavingsAccount WHERE owner = '" + payeeAddress + "';");
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        return resultSet;
-    }
-
-    public ResultSet getPensionAccountData(String payeeAddress) {
-        Statement statement;
-        ResultSet resultSet = null;
-
-        try {
-            statement = connection.createStatement();
-            resultSet = statement.executeQuery("SELECT * FROM PensionAccount WHERE owner = '" + payeeAddress + "';");
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        return resultSet;
+    public ResultSet getAccountData(String payeeAddress, boolean savingsOrPension) {
+        return tryExecuteQuery("SELECT * FROM " + (savingsOrPension ? "SavingsAccount" : "PensionAccount") + " WHERE owner = '" + payeeAddress + "';");
     }
 
     public ResultSet searchClient(String payeeAddress) {
