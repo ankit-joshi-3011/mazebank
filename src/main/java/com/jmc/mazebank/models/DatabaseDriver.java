@@ -34,29 +34,6 @@ public class DatabaseDriver {
         return tryExecuteQuery("SELECT * FROM Transactions WHERE Sender = '" + payeeAddress + "' OR Receiver = '" + payeeAddress + "' ORDER BY Date DESC LIMIT " + limit + ";");
     }
 
-    public void updateBalance(String payeeAddress, double amount, boolean addOrSubtract) {
-        Statement statement;
-        ResultSet resultSet = null;
-
-        try {
-            statement = connection.createStatement();
-            resultSet = statement.executeQuery("SELECT * FROM SavingsAccountSecond WHERE Owner = '" + payeeAddress + "';");
-
-            double newBalance;
-            if (addOrSubtract) {
-                newBalance = resultSet.getDouble("Balance") + amount;
-                statement.executeUpdate("UPDATE SavingsAccountSecond SET Balance = " + newBalance + " WHERE Owner = '" + payeeAddress + "';");
-            } else {
-                if (resultSet.getDouble("Balance") > amount) {
-                    newBalance = resultSet.getDouble("Balance") - amount;
-                    statement.executeUpdate("UPDATE SavingsAccountSecond SET Balance = " + newBalance + " WHERE Owner = '" + payeeAddress + "';");
-                }
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
     public void newTransaction(String sender, String receiver, double amount, String message) {
         tryExecuteUpdate("INSERT INTO " +
             "Transactions(Sender, Receiver, Amount, Date, Message) " +

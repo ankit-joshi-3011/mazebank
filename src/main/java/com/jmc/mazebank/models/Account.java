@@ -32,8 +32,4 @@ public abstract class Account {
     public ObjectProperty<LocalDate> dateCreatedProperty() {
         return dateCreated;
     }
-
-    public void setBalance(double amount, boolean addOrSubtract) {
-        balance.set(balance.get() + (addOrSubtract ? amount : -amount));
-    }
 }

@@ -88,9 +88,20 @@ public class DashboardController implements Initializable {
         ObservableList<Client> searchResults = Model.getInstance().searchClient(payeeAddress);
 
         if (!searchResults.isEmpty()) {
-            Model.getInstance().updateBalance(payeeAddress, amount, true);
-            Model.getInstance().updateBalance(sender, amount, false);
-            Model.getInstance().newTransaction(sender, payeeAddress, amount, message);
+            double senderSavingsAccountBalance = Model.getInstance().getClient().savingsAccountProperty().get().balanceProperty().get();
+
+            if (amount <= senderSavingsAccountBalance) {
+                double senderNewSavingsAccountBalance = senderSavingsAccountBalance - amount;
+                Model.getInstance().updateSavingsAccountBalance(sender, senderNewSavingsAccountBalance);
+                Model.getInstance().getClient().savingsAccountProperty().get().balanceProperty().set(senderNewSavingsAccountBalance);
+            }
+
+            double receiverNewSavingsAccountBalance = searchResults.getFirst().savingsAccountProperty().get().balanceProperty().get() + amount;
+            Model.getInstance().updateSavingsAccountBalance(searchResults.getFirst().savingsAccountProperty().get().ownerProperty().get(), receiverNewSavingsAccountBalance);
+            searchResults.getFirst().savingsAccountProperty().get().balanceProperty().set(receiverNewSavingsAccountBalance);
+
+            Model.getInstance().newTransaction(sender, searchResults.getFirst().savingsAccountProperty().get().ownerProperty().get(), amount, message);
+
             clearFields();
         }
     }
