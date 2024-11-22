@@ -16,9 +16,4 @@
         <Label fx:id="pension_account_label" styleClass="account_display_label" text="23330213" />
         <Label fx:id="date_label" text="21-11-2024" />
     </HBox>
-    <Button fx:id="delete_button" mnemonicParsing="false" styleClass="delete_button" text="Delete" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="12.0">
-        <graphic>
-            <FontAwesomeIconView glyphName="WINDOW_CLOSE_ALT" size="15" />
-        </graphic>
-    </Button>
 </AnchorPane>
