@@ -12,7 +12,9 @@ import javafx.scene.control.*;
 import javafx.scene.text.Text;
 
 import java.net.URL;
+import java.text.NumberFormat;
 import java.time.LocalDate;
+import java.util.Locale;
 import java.util.ResourceBundle;
 
 public class DashboardController implements Initializable {
@@ -68,9 +70,9 @@ public class DashboardController implements Initializable {
     private void bindData() {
         user_name.textProperty().bind(Bindings.concat("Hi, ", Model.getInstance().getClient().firstNameProperty()));
         login_date.setText("Today, " + LocalDate.now());
-        savings_account_balance.textProperty().bind(Model.getInstance().getClient().savingsAccountProperty().get().balanceProperty().asString());
+        savings_account_balance.textProperty().bind(Bindings.format("%s", NumberFormat.getCurrencyInstance(Locale.getDefault()).format(Model.getInstance().getClient().savingsAccountProperty().get().balanceProperty().get())));
         savings_account_number.textProperty().bind(Model.getInstance().getClient().savingsAccountProperty().get().accountNumberProperty());
-        pension_account_balance.textProperty().bind(Model.getInstance().getClient().pensionAccountProperty().get().balanceProperty().asString());
+        pension_account_balance.textProperty().bind(Bindings.format("%s", NumberFormat.getCurrencyInstance(Locale.getDefault()).format(Model.getInstance().getClient().pensionAccountProperty().get().balanceProperty().get())));
         pension_account_number.textProperty().bind(Model.getInstance().getClient().pensionAccountProperty().get().accountNumberProperty());
     }
 
