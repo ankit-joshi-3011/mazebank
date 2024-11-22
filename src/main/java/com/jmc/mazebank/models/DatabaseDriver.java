@@ -35,10 +35,7 @@ public class DatabaseDriver {
     }
 
     public void newTransaction(String sender, String receiver, double amount, LocalDate date, String message) {
-        tryExecuteUpdate("INSERT INTO " +
-            "Transactions(Sender, Receiver, Amount, Date, Message) " +
-            "VALUES('" + sender + "', '" + receiver + "', " + amount + ", '" + date + "', '" + message + "');"
-        );
+        tryExecuteUpdate("INSERT INTO " + "Transactions(Sender, Receiver, Amount, Date, Message) " + "VALUES('" + sender + "', '" + receiver + "', " + amount + ", '" + date + "', '" + message + "');");
     }
 
     // Admin Section
@@ -61,41 +58,18 @@ public class DatabaseDriver {
 
         try {
             statement = connection.createStatement();
-            statement.executeUpdate("INSERT INTO " +
-                "Clients(FirstName, LastName, PayeeAddress, Password, Date)" +
-                "VALUES ('" + firstName + "', '" + lastName + "', '" + payeeAddress + "', '" + password + "', '" + date.toString() + "');"
-            );
+            statement.executeUpdate("INSERT INTO " + "Clients(FirstName, LastName, PayeeAddress, Password, Date)" + "VALUES ('" + firstName + "', '" + lastName + "', '" + payeeAddress + "', '" + password + "', '" + date.toString() + "');");
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
-    public void createSavingsAccountFirst(String owner, String accountNumber, Double transactionLimit, Double balance) {
-        Statement statement = null;
-
-        try {
-            statement = connection.createStatement();
-            statement.executeUpdate("INSERT INTO " +
-                    "SavingsAccountFirst(Owner, AccountNumber, TransactionLimit, Balance)" +
-                    "VALUES ('" + owner + "', '" + accountNumber + "', " + transactionLimit + ", " + balance + ");"
-            );
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+    public void createSavingsAccount(String owner, String accountNumber, Double transactionLimit, Double balance) {
+        tryExecuteUpdate("INSERT INTO " + "SavingsAccount(Owner, AccountNumber, TransactionLimit, Balance)" + "VALUES ('" + owner + "', '" + accountNumber + "', " + transactionLimit + ", " + balance + ");");
     }
 
-    public void createSavingsAccountSecond(String owner, String accountNumber, Double transactionLimit, Double balance) {
-        Statement statement = null;
-
-        try {
-            statement = connection.createStatement();
-            statement.executeUpdate("INSERT INTO " +
-                    "SavingsAccountSecond(Owner, AccountNumber, TransactionLimit, Balance)" +
-                    "VALUES ('" + owner + "', '" + accountNumber + "', " + transactionLimit + ", " + balance + ");"
-            );
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+    public void createPensionAccount(String owner, String accountNumber, Double transactionLimit, Double balance) {
+        tryExecuteUpdate("INSERT INTO " + "SavingsAccountSecond(Owner, AccountNumber, TransactionLimit, Balance)" + "VALUES ('" + owner + "', '" + accountNumber + "', " + transactionLimit + ", " + balance + ");");
     }
 
     public ResultSet getAllClientsData() {

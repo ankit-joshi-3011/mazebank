@@ -120,12 +120,12 @@ public class Model {
         return false;
     }
 
-    public void createSavingsAccountFirst(String owner, String accountNumber, Double transactionLimit, Double balance) {
-        databaseDriver.createSavingsAccountFirst(owner, accountNumber, transactionLimit, balance);
+    public void createSavingsAccount(String owner, String accountNumber, Double transactionLimit, Double balance) {
+        databaseDriver.createSavingsAccount(owner, accountNumber, transactionLimit, balance);
     }
 
-    public void createSavingsAccountSecond(String owner, String accountNumber, Double transactionLimit, Double balance) {
-        databaseDriver.createSavingsAccountSecond(owner, accountNumber, transactionLimit, balance);
+    public void createPensionAccount(String owner, String accountNumber, Double transactionLimit, Double balance) {
+        databaseDriver.createPensionAccount(owner, accountNumber, transactionLimit, balance);
     }
 
     public void createClient(String firstName, String lastName, String payeeAddress, String password, LocalDate date) {

@@ -90,7 +90,7 @@ public class CreateClientController implements Initializable {
         String accountNumber = firstSection + " " + lastSection;
 
         // Create the account
-        Model.getInstance().createSavingsAccountFirst(payeeAddress, accountNumber, (double) 10, balance);
+        Model.getInstance().createSavingsAccount(payeeAddress, accountNumber, (double) 10, balance);
     }
 
     private void createPensionAccount() {
@@ -102,7 +102,7 @@ public class CreateClientController implements Initializable {
         String accountNumber = firstSection + " " + lastSection;
 
         // Create the account
-        Model.getInstance().createSavingsAccountSecond(payeeAddress, accountNumber, (double) 1000, balance);
+        Model.getInstance().createPensionAccount(payeeAddress, accountNumber, (double) 1000, balance);
     }
 
     private void onCreatePayeeAddress() {
