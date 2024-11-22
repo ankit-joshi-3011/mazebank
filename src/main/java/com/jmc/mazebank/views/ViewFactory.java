@@ -18,32 +18,17 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class ViewFactory {
-    private AccountType loginAccountType;
-
     private static ViewFactory viewFactory;
-
     // Client Views
     private final ObjectProperty<ClientMenuOptions> clientSelectedMenuItem;
-
-    private AnchorPane dashboardView;
-    private AnchorPane transactionsView;
-    private AnchorPane accountsView;
-
     // Admin Views
     private final ObjectProperty<AdminMenuOptions> adminSelectedMenuItem;
-
-    private AnchorPane createClientView;
-    private AnchorPane clientsView;
-    private AnchorPane depositView;
+    private AccountType loginAccountType;
 
     private ViewFactory() {
         loginAccountType = AccountType.CLIENT;
         clientSelectedMenuItem = new SimpleObjectProperty<>();
         adminSelectedMenuItem = new SimpleObjectProperty<>();
-    }
-
-    public ObjectProperty<ClientMenuOptions> getClientSelectedMenuItem() {
-        return clientSelectedMenuItem;
     }
 
     public static synchronized ViewFactory getInstance() {
@@ -54,6 +39,10 @@ public class ViewFactory {
         return viewFactory;
     }
 
+    public ObjectProperty<ClientMenuOptions> getClientSelectedMenuItem() {
+        return clientSelectedMenuItem;
+    }
+
     public AccountType getLoginAccountType() {
         return loginAccountType;
     }
@@ -62,40 +51,27 @@ public class ViewFactory {
         this.loginAccountType = loginAccountType;
     }
 
-    public AnchorPane getDashboardView() {
-        if (dashboardView == null) {
-            try {
-                dashboardView = new FXMLLoader(getClass().getResource("/fxml/client/Dashboard.fxml")).load();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+    private AnchorPane getAnchorPaneFromFXML(boolean clientOrAdmin, String fxmlFileNameWithoutExtension) {
+        AnchorPane anchorPane = null;
+        try {
+            anchorPane = new FXMLLoader(getClass().getResource(String.format("/fxml/%s/%s.fxml", (clientOrAdmin ? "client" : "admin"), fxmlFileNameWithoutExtension))).load();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
 
-        return dashboardView;
+        return anchorPane;
+    }
+
+    public AnchorPane getDashboardView() {
+        return getAnchorPaneFromFXML(true, "Dashboard");
     }
 
     public AnchorPane getTransactionsView() {
-        if (transactionsView == null) {
-            try {
-                transactionsView = new FXMLLoader(getClass().getResource("/fxml/client/Transactions.fxml")).load();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-
-        return transactionsView;
+        return getAnchorPaneFromFXML(true, "Transactions");
     }
 
     public AnchorPane getAccountsView() {
-        if (accountsView == null) {
-            try {
-                accountsView = new FXMLLoader(getClass().getResource("/fxml/client/Accounts.fxml")).load();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-
-        return accountsView;
+        return getAnchorPaneFromFXML(true, "Accounts");
     }
 
     public void showLoginWindow() {
@@ -152,39 +128,15 @@ public class ViewFactory {
     }
 
     public AnchorPane getCreateClientView() {
-        if (createClientView == null) {
-            try {
-                createClientView = new FXMLLoader(getClass().getResource("/fxml/admin/CreateClient.fxml")).load();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-
-        return createClientView;
+        return getAnchorPaneFromFXML(false, "CreateClient");
     }
 
     public AnchorPane getClientsView() {
-        if (clientsView == null) {
-            try {
-                clientsView = new FXMLLoader(getClass().getResource("/fxml/admin/Clients.fxml")).load();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-
-        return clientsView;
+        return getAnchorPaneFromFXML(false, "Clients");
     }
 
     public AnchorPane getDepositView() {
-        if (depositView == null) {
-            try {
-                depositView = new FXMLLoader(getClass().getResource("/fxml/admin/Deposit.fxml")).load();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-
-        return depositView;
+        return getAnchorPaneFromFXML(false, "Deposit");
     }
 
     private void createStage(FXMLLoader loader) {
