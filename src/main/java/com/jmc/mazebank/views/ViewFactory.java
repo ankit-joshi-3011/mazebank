@@ -23,6 +23,12 @@ public class ViewFactory {
     private final ObjectProperty<ClientMenuOptions> clientSelectedMenuItem;
     private final ObjectProperty<AdminMenuOptions> adminSelectedMenuItem;
     private AccountType loginAccountType;
+    private AnchorPane dashboardView;
+    private AnchorPane transactionsView;
+    private AnchorPane accountsView;
+    private AnchorPane createClientView;
+    private AnchorPane clientsView;
+    private AnchorPane depositView;
 
     private ViewFactory() {
         clientSelectedMenuItem = new SimpleObjectProperty<>();
@@ -62,15 +68,27 @@ public class ViewFactory {
     }
 
     public AnchorPane getDashboardView() {
-        return getAnchorPaneFromFXML(true, "Dashboard");
+        if (dashboardView == null) {
+            dashboardView = getAnchorPaneFromFXML(true, "Dashboard");
+        }
+
+        return dashboardView;
     }
 
     public AnchorPane getTransactionsView() {
-        return getAnchorPaneFromFXML(true, "Transactions");
+        if (transactionsView == null) {
+            transactionsView = getAnchorPaneFromFXML(true, "Transactions");
+        }
+
+        return transactionsView;
     }
 
     public AnchorPane getAccountsView() {
-        return getAnchorPaneFromFXML(true, "Accounts");
+        if (accountsView == null) {
+            accountsView = getAnchorPaneFromFXML(true, "Accounts");
+        }
+
+        return accountsView;
     }
 
     public void showLoginWindow() {
@@ -127,15 +145,27 @@ public class ViewFactory {
     }
 
     public AnchorPane getCreateClientView() {
-        return getAnchorPaneFromFXML(false, "CreateClient");
+        if (createClientView == null) {
+            createClientView = getAnchorPaneFromFXML(false, "CreateClient");
+        }
+
+        return createClientView;
     }
 
     public AnchorPane getClientsView() {
-        return getAnchorPaneFromFXML(false, "Clients");
+        if (clientsView == null) {
+            clientsView = getAnchorPaneFromFXML(false, "Clients");
+        }
+
+        return clientsView;
     }
 
     public AnchorPane getDepositView() {
-        return getAnchorPaneFromFXML(false, "Deposit");
+        if (depositView == null) {
+            depositView = getAnchorPaneFromFXML(false, "Deposit");
+        }
+
+        return depositView;
     }
 
     private void createStage(FXMLLoader loader) {
