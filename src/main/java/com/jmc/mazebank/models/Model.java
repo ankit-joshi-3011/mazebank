@@ -231,10 +231,6 @@ public class Model {
         return searchResults;
     }
 
-    public void depositSavings(String payeeAddress, double amount) {
-        databaseDriver.depositSavings(payeeAddress, amount);
-    }
-
     public void updateSavingsAccountBalance(String payeeAddress, double balance) {
         databaseDriver.updateAccountBalance(payeeAddress, balance, true);
     }

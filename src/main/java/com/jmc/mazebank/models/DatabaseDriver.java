@@ -136,17 +136,6 @@ public class DatabaseDriver {
         return tryExecuteQuery("SELECT * FROM Clients WHERE PayeeAddress = '" + payeeAddress + "';");
     }
 
-    public void depositSavings(String payeeAddress, double amount) {
-        Statement statement;
-
-        try {
-            statement = connection.createStatement();
-            statement.executeUpdate("UPDATE SavingsAccountSecond SET Balance = " + amount + " WHERE Owner = '" + payeeAddress + "';");
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
     public void updateAccountBalance(String payeeAddress, double balance, boolean savingsOrPension) {
         tryExecuteUpdate("UPDATE " + (savingsOrPension ? "SavingsAccount" : "PensionAccount") + " SET Balance = " + balance + " WHERE Owner = '" + payeeAddress + "';");
     }

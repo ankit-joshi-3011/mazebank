@@ -47,9 +47,10 @@ public class DepositController implements Initializable {
     private void onDeposit() {
         if (amount_field.getText() != null) {
             double amount = Double.parseDouble(amount_field.getText());
-            double newBalance = amount + client.pensionAccountProperty().get().balanceProperty().get();
+            double newBalance = amount + client.savingsAccountProperty().get().balanceProperty().get();
 
-            Model.getInstance().depositSavings(payee_address_field.getText(), newBalance);
+            Model.getInstance().updateSavingsAccountBalance(payee_address_field.getText(), newBalance);
+            client.savingsAccountProperty().get().balanceProperty().set(newBalance);
         }
 
         clearFields();
