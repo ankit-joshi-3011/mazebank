@@ -6,26 +6,29 @@ import javafx.collections.ObservableList;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Model {
     private static Model model;
     private final DatabaseDriver databaseDriver;
 
-    // Client Data Section
     private final Client client;
 
     private final ObservableList<Client> clients;
 
-    // Admin Data Section
+    private final ObservableList<Transaction> latestTransactions;
+    private final ObservableList<Transaction> allTransactions;
 
     private Model() {
         this.databaseDriver = new DatabaseDriver();
 
-        // Client Data Section
         client = new Client("", "", "", null, null, null);
 
-        // Admin Data Section
         clients = FXCollections.observableArrayList();
+
+        latestTransactions = FXCollections.observableArrayList();
+        allTransactions = FXCollections.observableArrayList();
     }
 
     public static synchronized Model getInstance() {
@@ -47,11 +50,7 @@ public class Model {
                 client.payeeAddressProperty().set(resultSet.getString("PayeeAddress"));
 
                 String[] dateParts = resultSet.getString("Date").split("-");
-                LocalDate date = LocalDate.of(
-                    Integer.parseInt(dateParts[0]),
-                    Integer.parseInt(dateParts[1]),
-                    Integer.parseInt(dateParts[2])
-                );
+                LocalDate date = LocalDate.of(Integer.parseInt(dateParts[0]), Integer.parseInt(dateParts[1]), Integer.parseInt(dateParts[2]));
                 client.dateCreatedProperty().set(date);
                 client.savingsAccountProperty().set(getSavingsAccount(payeeAddress));
                 client.pensionAccountProperty().set(getPensionAccount(payeeAddress));
@@ -69,8 +68,8 @@ public class Model {
         return client;
     }
 
-    private ObservableList<Transaction> prepareTransactions(int limit) {
-        ObservableList<Transaction> transactions = FXCollections.observableArrayList();
+    private List<Transaction> prepareTransactions(int limit) {
+        List<Transaction> transactions = new ArrayList<>();
 
         try (ResultSet resultSet = databaseDriver.getTransactions(client.payeeAddressProperty().get(), limit)) {
             while (resultSet.next()) {
@@ -78,11 +77,7 @@ public class Model {
                 String receiver = resultSet.getString("Receiver");
                 double amount = resultSet.getDouble("Amount");
                 String[] dateParts = resultSet.getString("Date").split("-");
-                LocalDate date = LocalDate.of(
-                        Integer.parseInt(dateParts[0]),
-                        Integer.parseInt(dateParts[1]),
-                        Integer.parseInt(dateParts[2])
-                );
+                LocalDate date = LocalDate.of(Integer.parseInt(dateParts[0]), Integer.parseInt(dateParts[1]), Integer.parseInt(dateParts[2]));
                 String message = resultSet.getString("Message");
 
                 transactions.add(new Transaction(sender, receiver, amount, date, message));
@@ -95,11 +90,19 @@ public class Model {
     }
 
     public ObservableList<Transaction> getLatestTransactions() {
-        return prepareTransactions(4);
+        if (latestTransactions.isEmpty()) {
+            latestTransactions.addAll(prepareTransactions(4));
+        }
+
+        return latestTransactions;
     }
 
     public ObservableList<Transaction> getAllTransactions() {
-        return prepareTransactions(-1);
+        if (allTransactions.isEmpty()) {
+            allTransactions.addAll(prepareTransactions(-1));
+        }
+
+        return allTransactions;
     }
 
     // Admin method section
@@ -149,11 +152,7 @@ public class Model {
                 String payeeAddress = resultSet.getString("PayeeAddress");
 
                 String[] dateParts = resultSet.getString("Date").split("-");
-                LocalDate date = LocalDate.of(
-                    Integer.parseInt(dateParts[0]),
-                    Integer.parseInt(dateParts[1]),
-                    Integer.parseInt(dateParts[2])
-                );
+                LocalDate date = LocalDate.of(Integer.parseInt(dateParts[0]), Integer.parseInt(dateParts[1]), Integer.parseInt(dateParts[2]));
 
                 savingsAccount = getSavingsAccount(payeeAddress);
                 pensionAccount = getPensionAccount(payeeAddress);
@@ -166,7 +165,14 @@ public class Model {
     }
 
     public void newTransaction(String sender, String receiver, double amount, String message) {
-        databaseDriver.newTransaction(sender, receiver, amount, message);
+        LocalDate date = LocalDate.now();
+
+        databaseDriver.newTransaction(sender, receiver, amount, date, message);
+
+        Transaction newTransaction = new Transaction(sender, receiver, amount, date, message);
+
+        latestTransactions.addFirst(newTransaction);
+        allTransactions.addFirst(newTransaction);
     }
 
     // Utility Methods
@@ -179,11 +185,7 @@ public class Model {
             int transactionLimit = (int) resultSet.getDouble("TransactionLimit");
             double balance = resultSet.getDouble("Balance");
             String[] dateParts = resultSet.getString("DateCreated").split("-");
-            LocalDate date = LocalDate.of(
-                    Integer.parseInt(dateParts[0]),
-                    Integer.parseInt(dateParts[1]),
-                    Integer.parseInt(dateParts[2])
-            );
+            LocalDate date = LocalDate.of(Integer.parseInt(dateParts[0]), Integer.parseInt(dateParts[1]), Integer.parseInt(dateParts[2]));
 
             savingsAccount = new SavingsAccount(payeeAddress, accountNumber, balance, date, transactionLimit);
         } catch (SQLException e) {
@@ -202,11 +204,7 @@ public class Model {
             int withdrawalLimit = (int) resultSet.getDouble("WithdrawalLimit");
             double balance = resultSet.getDouble("Balance");
             String[] dateParts = resultSet.getString("DateCreated").split("-");
-            LocalDate date = LocalDate.of(
-                    Integer.parseInt(dateParts[0]),
-                    Integer.parseInt(dateParts[1]),
-                    Integer.parseInt(dateParts[2])
-            );
+            LocalDate date = LocalDate.of(Integer.parseInt(dateParts[0]), Integer.parseInt(dateParts[1]), Integer.parseInt(dateParts[2]));
 
             pensionAccount = new PensionAccount(payeeAddress, accountNumber, balance, date, withdrawalLimit);
         } catch (SQLException e) {
@@ -223,11 +221,7 @@ public class Model {
             String firstName = resultSet.getString("FirstName");
             String lastName = resultSet.getString("LastName");
             String[] dateParts = resultSet.getString("Date").split("-");
-            LocalDate date = LocalDate.of(
-                Integer.parseInt(dateParts[0]),
-                Integer.parseInt(dateParts[1]),
-                Integer.parseInt(dateParts[2])
-            );
+            LocalDate date = LocalDate.of(Integer.parseInt(dateParts[0]), Integer.parseInt(dateParts[1]), Integer.parseInt(dateParts[2]));
 
             searchResults.add(new Client(firstName, lastName, payeeAddress, getSavingsAccount(payeeAddress), getPensionAccount(payeeAddress), date));
         } catch (SQLException e) {

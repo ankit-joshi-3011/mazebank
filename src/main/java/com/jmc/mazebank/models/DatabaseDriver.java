@@ -34,10 +34,10 @@ public class DatabaseDriver {
         return tryExecuteQuery("SELECT * FROM Transactions WHERE Sender = '" + payeeAddress + "' OR Receiver = '" + payeeAddress + "' ORDER BY Date DESC LIMIT " + limit + ";");
     }
 
-    public void newTransaction(String sender, String receiver, double amount, String message) {
+    public void newTransaction(String sender, String receiver, double amount, LocalDate date, String message) {
         tryExecuteUpdate("INSERT INTO " +
             "Transactions(Sender, Receiver, Amount, Date, Message) " +
-            "VALUES('" + sender + "', '" + receiver + "', " + amount + ", '" + LocalDate.now() + "', '" + message + "');"
+            "VALUES('" + sender + "', '" + receiver + "', " + amount + ", '" + date + "', '" + message + "');"
         );
     }
 
