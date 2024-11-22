@@ -31,17 +31,7 @@ public class DatabaseDriver {
     }
 
     public ResultSet getTransactions(String payeeAddress, int limit) {
-        Statement statement;
-        ResultSet resultSet = null;
-
-        try {
-            statement = connection.createStatement();
-            resultSet = statement.executeQuery("SELECT * FROM Transactions WHERE Sender = '" + payeeAddress + "' OR Receiver = '" + payeeAddress + "' LIMIT " + limit + ";");
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        return resultSet;
+        return tryExecuteQuery("SELECT * FROM Transactions WHERE Sender = '" + payeeAddress + "' OR Receiver = '" + payeeAddress + "' ORDER BY Date DESC LIMIT " + limit + ";");
     }
 
     public void updateBalance(String payeeAddress, double amount, boolean addOrSubtract) {
@@ -246,5 +236,19 @@ public class DatabaseDriver {
                 e.printStackTrace();
             }
         }
+    }
+
+    private ResultSet tryExecuteQuery(String query) {
+        Optional<Statement> statement = Optional.ofNullable(tryCreateStatement());
+        ResultSet resultSet = null;
+
+        if (statement.isPresent()) {
+            try {
+                resultSet = statement.get().executeQuery(query);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return resultSet;
     }
 }
