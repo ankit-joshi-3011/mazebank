@@ -5,6 +5,7 @@ import com.jmc.mazebank.models.Model;
 import com.jmc.mazebank.models.Transaction;
 import com.jmc.mazebank.views.TransactionCellFactory;
 import javafx.beans.binding.Bindings;
+import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -64,6 +65,7 @@ public class DashboardController implements Initializable {
         transactions_listview.setCellFactory(_ -> new TransactionCellFactory());
         send_money_button.setOnAction(_ -> onSendMoney());
         calculateAccountSummary();
+        Model.getInstance().getAllTransactions().addListener((ListChangeListener<Transaction>) _ -> calculateAccountSummary());
     }
 
     private void bindData() {
