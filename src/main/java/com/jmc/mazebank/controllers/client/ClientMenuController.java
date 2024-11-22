@@ -1,6 +1,5 @@
 package com.jmc.mazebank.controllers.client;
 
-import com.jmc.mazebank.models.Model;
 import com.jmc.mazebank.views.ClientMenuOptions;
 import com.jmc.mazebank.views.ViewFactory;
 import javafx.fxml.FXML;
@@ -22,13 +21,7 @@ public class ClientMenuController implements Initializable {
     private Button accounts_button;
 
     @FXML
-    private Button profile_button;
-
-    @FXML
     private Button logout_button;
-
-    @FXML
-    private Button report_button;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
