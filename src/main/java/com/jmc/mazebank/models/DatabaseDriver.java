@@ -65,11 +65,11 @@ public class DatabaseDriver {
     }
 
     public void createSavingsAccount(String owner, String accountNumber, Double transactionLimit, Double balance) {
-        tryExecuteUpdate("INSERT INTO " + "SavingsAccount(Owner, AccountNumber, TransactionLimit, Balance)" + "VALUES ('" + owner + "', '" + accountNumber + "', " + transactionLimit + ", " + balance + ");");
+        tryExecuteUpdate("INSERT INTO " + "SavingsAccount(Owner, AccountNumber, TransactionLimit, Balance, DateCreated)" + "VALUES ('" + owner + "', '" + accountNumber + "', " + transactionLimit + ", " + balance + ", '" + LocalDate.now() + "');");
     }
 
     public void createPensionAccount(String owner, String accountNumber, Double withdrawalLimit, Double balance) {
-        tryExecuteUpdate("INSERT INTO " + "PensionAccount(Owner, AccountNumber, WithdrawalLimit, Balance)" + "VALUES ('" + owner + "', '" + accountNumber + "', " + withdrawalLimit + ", " + balance + ");");
+        tryExecuteUpdate("INSERT INTO " + "PensionAccount(Owner, AccountNumber, WithdrawalLimit, Balance, DateCreated)" + "VALUES ('" + owner + "', '" + accountNumber + "', " + withdrawalLimit + ", " + balance + ", '" + LocalDate.now() + "');");
     }
 
     public ResultSet getAllClientsData() {
