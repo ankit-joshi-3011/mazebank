@@ -10,6 +10,8 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class ClientCellController implements Initializable {
+    private final Client client;
+
     @FXML
     private Label first_name_label;
 
@@ -30,8 +32,6 @@ public class ClientCellController implements Initializable {
 
     @FXML
     private Button delete_button;
-
-    private final Client client;
 
     public ClientCellController(Client client) {
         this.client = client;
