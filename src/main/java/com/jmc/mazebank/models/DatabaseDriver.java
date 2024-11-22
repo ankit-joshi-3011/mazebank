@@ -173,12 +173,8 @@ public class DatabaseDriver {
         }
     }
 
-    public void updateSavingsAccountBalance(String payeeAddress, double balance) {
-        tryExecuteUpdate("UPDATE SavingsAccount SET Balance = " + balance + " WHERE Owner = '" + payeeAddress + "';");
-    }
-
-    public void updatePensionAccountBalance(String payeeAddress, double balance) {
-        tryExecuteUpdate("UPDATE PensionAccount SET Balance = " + balance + " WHERE Owner = '" + payeeAddress + "';");
+    public void updateAccountBalance(String payeeAddress, double balance, boolean savingsOrPension) {
+        tryExecuteUpdate("UPDATE " + (savingsOrPension ? "SavingsAccount" : "PensionAccount") + " SET Balance = " + balance + " WHERE Owner = '" + payeeAddress + "';");
     }
 
     private Statement tryCreateStatement() {

@@ -252,10 +252,10 @@ public class Model {
     }
 
     public void updateSavingsAccountBalance(String payeeAddress, double balance) {
-        databaseDriver.updateSavingsAccountBalance(payeeAddress, balance);
+        databaseDriver.updateAccountBalance(payeeAddress, balance, true);
     }
 
     public void updatePensionAccountBalance(String payeeAddress, double balance) {
-        databaseDriver.updatePensionAccountBalance(payeeAddress, balance);
+        databaseDriver.updateAccountBalance(payeeAddress, balance, false);
     }
 }
