@@ -11,43 +11,37 @@ import java.util.ResourceBundle;
 
 public class AccountsController implements Initializable {
     @FXML
-    private Label savings_account_first_number;
+    private Label savings_account_number;
 
     @FXML
-    private Label savings_account_first_transaction_limit;
+    private Label savings_account_transaction_limit;
 
     @FXML
-    private Label savings_account_first_date_created;
+    private Label savings_account_date_created;
 
     @FXML
-    private Label savings_account_first_balance;
+    private Label savings_account_balance;
 
     @FXML
-    private Label savings_account_second_number;
+    private Label pension_account_number;
 
     @FXML
-    private Label savings_account_second_transaction_limit;
+    private Label pension_account_withdrawal_limit;
 
     @FXML
-    private Label savings_account_second_date_created;
+    private Label pension_account_date_created;
 
     @FXML
-    private Label savings_account_second_balance;
+    private Label pension_account_balance;
 
     @FXML
-    private TextField amount_to_savings_account_second;
+    private TextField amount_to_pension_account;
 
     @FXML
-    private Button transfer_to_savings_account_second;
-
-    @FXML
-    private TextField amount_to_savings_account_first;
-
-    @FXML
-    private Button transfer_to_savings_account_first;
+    private Button transfer_to_pension_account;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        
+
     }
 }
