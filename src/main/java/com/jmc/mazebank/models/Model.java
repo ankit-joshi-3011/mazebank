@@ -186,35 +186,49 @@ public class Model {
 
     // Utility Methods
     public SavingsAccount getSavingsAccount(String payeeAddress) {
-        SavingsAccount savingsAccountFirst = null;
-        ResultSet resultSet = databaseDriver.getSavingsAccountFirstData(payeeAddress);
+        SavingsAccount savingsAccount = null;
+        ResultSet resultSet = databaseDriver.getSavingsAccountData(payeeAddress);
 
         try {
             String accountNumber = resultSet.getString("AccountNumber");
             int transactionLimit = (int) resultSet.getDouble("TransactionLimit");
             double balance = resultSet.getDouble("Balance");
-            savingsAccountFirst = new SavingsAccount(payeeAddress, accountNumber, balance, transactionLimit);
+            String[] dateParts = resultSet.getString("DateCreated").split("-");
+            LocalDate date = LocalDate.of(
+                    Integer.parseInt(dateParts[0]),
+                    Integer.parseInt(dateParts[1]),
+                    Integer.parseInt(dateParts[2])
+            );
+
+            savingsAccount = new SavingsAccount(payeeAddress, accountNumber, balance, date, transactionLimit);
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
-        return savingsAccountFirst;
+        return savingsAccount;
     }
 
     public SavingsAccount getPensionAccount(String payeeAddress) {
-        SavingsAccount savingsAccountSecond = null;
-        ResultSet resultSet = databaseDriver.getSavingsAccountSecondData(payeeAddress);
+        SavingsAccount pensionAccount = null;
+        ResultSet resultSet = databaseDriver.getPensionAccountData(payeeAddress);
 
         try {
             String accountNumber = resultSet.getString("AccountNumber");
             int transactionLimit = (int) resultSet.getDouble("TransactionLimit");
             double balance = resultSet.getDouble("Balance");
-            savingsAccountSecond = new SavingsAccount(payeeAddress, accountNumber, balance, transactionLimit);
+            String[] dateParts = resultSet.getString("DateCreated").split("-");
+            LocalDate date = LocalDate.of(
+                    Integer.parseInt(dateParts[0]),
+                    Integer.parseInt(dateParts[1]),
+                    Integer.parseInt(dateParts[2])
+            );
+
+            pensionAccount = new SavingsAccount(payeeAddress, accountNumber, balance, date, transactionLimit);
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
-        return savingsAccountSecond;
+        return pensionAccount;
     }
 
     public ObservableList<Client> searchClient(String payeeAddress) {

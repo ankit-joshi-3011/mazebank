@@ -171,13 +171,13 @@ public class DatabaseDriver {
         return id;
     }
 
-    public ResultSet getSavingsAccountFirstData(String payeeAddress) {
-        Statement statement = null;
+    public ResultSet getSavingsAccountData(String payeeAddress) {
+        Statement statement;
         ResultSet resultSet = null;
 
         try {
             statement = connection.createStatement();
-            resultSet = statement.executeQuery("SELECT * FROM SavingsAccountFirst WHERE owner = '" + payeeAddress + "';");
+            resultSet = statement.executeQuery("SELECT * FROM SavingsAccount WHERE owner = '" + payeeAddress + "';");
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -185,13 +185,13 @@ public class DatabaseDriver {
         return resultSet;
     }
 
-    public ResultSet getSavingsAccountSecondData(String payeeAddress) {
-        Statement statement = null;
+    public ResultSet getPensionAccountData(String payeeAddress) {
+        Statement statement;
         ResultSet resultSet = null;
 
         try {
             statement = connection.createStatement();
-            resultSet = statement.executeQuery("SELECT * FROM SavingsAccountSecond WHERE owner = '" + payeeAddress + "';");
+            resultSet = statement.executeQuery("SELECT * FROM PensionAccount WHERE owner = '" + payeeAddress + "';");
         } catch (SQLException e) {
             e.printStackTrace();
         }
