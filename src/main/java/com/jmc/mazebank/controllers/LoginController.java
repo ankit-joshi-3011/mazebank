@@ -50,9 +50,7 @@ public class LoginController implements Initializable {
                 Stage stage = (Stage) error_label.getScene().getWindow();
                 ViewFactory.getInstance().closeStage(stage);
             } else {
-                payee_address_field.clear();
-                password_field.clear();
-                error_label.setText("No Such Login Credentials");
+                clearFieldsAndShowErrorMessage();
             }
         } else {
             if (Model.getInstance().evaluateAdminCredentials(payee_address_field.getText(), password_field.getText())) {
@@ -61,9 +59,7 @@ public class LoginController implements Initializable {
                 Stage stage = (Stage) error_label.getScene().getWindow();
                 ViewFactory.getInstance().closeStage(stage);
             } else {
-                payee_address_field.clear();
-                password_field.clear();
-                error_label.setText("No Such Login Credentials");
+                clearFieldsAndShowErrorMessage();
             }
         }
     }
@@ -76,5 +72,11 @@ public class LoginController implements Initializable {
         } else {
             payee_address_label.setText("Payee Address:");
         }
+    }
+
+    private void clearFieldsAndShowErrorMessage() {
+        payee_address_field.clear();
+        password_field.clear();
+        error_label.setText("No Such Login Credentials");
     }
 }
