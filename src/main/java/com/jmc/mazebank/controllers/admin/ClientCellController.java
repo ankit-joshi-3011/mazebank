@@ -30,9 +30,6 @@ public class ClientCellController implements Initializable {
     @FXML
     private Label date_label;
 
-    @FXML
-    private Button delete_button;
-
     public ClientCellController(Client client) {
         this.client = client;
     }
