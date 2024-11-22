@@ -49,12 +49,12 @@ public class AccountsController implements Initializable {
         savings_account_number.textProperty().bind(Model.getInstance().getClient().savingsAccountProperty().get().accountNumberProperty());
         savings_account_transaction_limit.textProperty().bind(Model.getInstance().getClient().savingsAccountProperty().get().transactionLimitProperty().asString());
         savings_account_date_created.textProperty().bind(Model.getInstance().getClient().savingsAccountProperty().get().dateCreatedProperty().asString());
-        savings_account_balance.textProperty().bind(Bindings.format("%s", NumberFormat.getCurrencyInstance(Locale.getDefault()).format(Model.getInstance().getClient().savingsAccountProperty().get().balanceProperty().get())));
+        savings_account_balance.textProperty().bind(Bindings.concat("Rs. ", Model.getInstance().getClient().savingsAccountProperty().get().balanceProperty()));
 
         pension_account_number.textProperty().bind(Model.getInstance().getClient().pensionAccountProperty().get().accountNumberProperty());
-        pension_account_withdrawal_limit.textProperty().bind(Bindings.format("%s", NumberFormat.getCurrencyInstance(Locale.getDefault()).format(Model.getInstance().getClient().pensionAccountProperty().get().withdrawalLimitProperty().get())));
+        pension_account_withdrawal_limit.textProperty().bind(Bindings.concat("Rs. ", Model.getInstance().getClient().pensionAccountProperty().get().withdrawalLimitProperty()));
         pension_account_date_created.textProperty().bind(Model.getInstance().getClient().pensionAccountProperty().get().dateCreatedProperty().asString());
-        pension_account_balance.textProperty().bind(Bindings.format("%s", NumberFormat.getCurrencyInstance(Locale.getDefault()).format(Model.getInstance().getClient().pensionAccountProperty().get().balanceProperty().get())));
+        pension_account_balance.textProperty().bind(Bindings.concat("Rs. ", Model.getInstance().getClient().pensionAccountProperty().get().balanceProperty()));
 
         transfer_to_pension_account.setOnAction(_ -> onTransferToPensionAccount());
     }
